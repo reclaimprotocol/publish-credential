@@ -29,7 +29,7 @@ import { Proof } from '@reclaimprotocol/reclaim-sdk'
 const steps = [
   { title: 'First', description: 'Choose Provider' },
   { title: 'Second', description: 'Choose Chain' },
-  { title: 'Second', description: 'Prove Claim' },
+  { title: 'Third', description: 'Prove Claim' },
   { title: 'Final', description: 'Publish' }
 ]
 
