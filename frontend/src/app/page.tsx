@@ -2,7 +2,7 @@
 import Hero from '../components/Hero'
 import Navbar from '../components/Navbar'
 
-export function Page () {
+function Page () {
   return (
     <>
       <Navbar />

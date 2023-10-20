@@ -5,7 +5,9 @@ import { Proof } from '@reclaimprotocol/reclaim-sdk'
 
 import publishWithDisco from '../../utils/publish-disco'
 import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
-import ArbitrumAttestor from '../Attestors/ArbitrumAttestor'
+// import ArbitrumAttestor from '../Attestors/ArbitrumAttestor'
+// import OptimismAttestor from '../Attestors/OptimismAttestor'
+import VeraxAttestor from '../Attestors/VeraxAttestor'
 
 export function PublishStep ({ proof, chosenChain, provider }: { proof: Proof | undefined, chosenChain: keyof typeof reclaimNetworksAddresses, provider: any }) {
   const toast = useToast()
@@ -40,10 +42,10 @@ console.log(proof)
     <Center>
       <Stack h={'100%'} w={'xl'} gap={6}>
         <Button colorScheme='blue' onClick={handleDisco}>Publish With Disco</Button>
-        <Button colorScheme='blue'>Publish With Ceramic</Button>
-        {chosenChain.includes('linea')  &&<Button colorScheme='blue'>Publish With Verax</Button>}
-        {chosenChain.includes('arb') && <ArbitrumAttestor proof={proof} provider={provider?.value.providerId} />}
-        {chosenChain.includes('opt') && <Button colorScheme='blue'>Publish With Optimism EAS</Button>}
+        {/* <Button colorScheme='blue'>Publish With Ceramic</Button> */}
+        {chosenChain.includes('linea')  && <VeraxAttestor proof={proof} provider={provider?.value.providerId} />}
+        {/* {chosenChain.includes('arb') && <ArbitrumAttestor proof={proof} provider={provider?.value.providerId} />}
+        {chosenChain.includes('opt') && <OptimismAttestor proof={proof} provider={provider?.value.providerId} />} */}
       </Stack>
     </Center>
   )

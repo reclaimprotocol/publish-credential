@@ -7,12 +7,7 @@ import { useNetwork, useSwitchNetwork } from 'wagmi'
 type SupportedNetworkDropDownProps = {
   setChosenChain: React.Dispatch<
     React.SetStateAction<
-      | 'polygon-mumbai'
-      | 'linea-goerli'
-      | 'opt-goerli'
-      | 'polygon-mainnet'
-      | 'arb-mainnet'
-      | 'opt-mainnet'
+      keyof typeof reclaimNetworksAddresses
     >
   >
 }
