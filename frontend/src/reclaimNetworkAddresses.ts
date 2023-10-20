@@ -9,7 +9,7 @@ export const reclaimNetworksAddresses = {
     name: 'Linea testnet',
     chainId: 59140
   },
-  'opt-goerli': {
+  'optimism-goerli': {
     address: '0x2f0306D698685BEf7ff50745BFF7178F0d117ba8',
     name: 'Optimism testnet',
     chainId: 420
@@ -19,12 +19,12 @@ export const reclaimNetworksAddresses = {
     name: 'Polygon mainnet',
     chainId: 137
   },
-  'arb-mainnet': {
+  'arbitrum-one': {
     address: '0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1',
     name: 'Arbitrum mainnet',
     chainId: 42161
   },
-  'opt-mainnet': {
+  'optimism': {
     address: '0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1',
     name: 'Optimism mainnet',
     chainId: 10

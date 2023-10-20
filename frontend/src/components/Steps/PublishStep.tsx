@@ -4,8 +4,10 @@ import { Button, Center, Stack, useToast } from '@chakra-ui/react'
 import { Proof } from '@reclaimprotocol/reclaim-sdk'
 
 import publishWithDisco from '../../utils/publish-disco'
+import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
+import ArbitrumAttestor from '../Attestors/ArbitrumAttestor'
 
-export function PublishStep ({ proof }: { proof: Proof | undefined }) {
+export function PublishStep ({ proof, chosenChain, provider }: { proof: Proof | undefined, chosenChain: keyof typeof reclaimNetworksAddresses, provider: any }) {
   const toast = useToast()
   const handleDisco = async()=>{
     if(proof === undefined)return;
@@ -33,15 +35,15 @@ export function PublishStep ({ proof }: { proof: Proof | undefined }) {
   }
 
 
-
+console.log(proof)
   return (
     <Center>
       <Stack h={'100%'} w={'xl'} gap={6}>
         <Button colorScheme='blue' onClick={handleDisco}>Publish With Disco</Button>
-        <Button colorScheme='blue'>Publish With Verax</Button>
         <Button colorScheme='blue'>Publish With Ceramic</Button>
-        <Button colorScheme='blue'>Publish With Arbitrum EAS</Button>
-        <Button colorScheme='blue'>Publish With Optimism EAS</Button>
+        {chosenChain.includes('linea')  &&<Button colorScheme='blue'>Publish With Verax</Button>}
+        {chosenChain.includes('arb') && <ArbitrumAttestor proof={proof} provider={provider?.value.providerId} />}
+        {chosenChain.includes('opt') && <Button colorScheme='blue'>Publish With Optimism EAS</Button>}
       </Stack>
     </Center>
   )

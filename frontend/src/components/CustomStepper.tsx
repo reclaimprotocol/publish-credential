@@ -70,7 +70,7 @@ export function CustomStepper () {
       {activeStep == 1 && <ChooseProviderStep handleSelectChange={(e: any)=> {setSelectedProvider(e)}} />}
       {activeStep == 2 && <ChooseChainStep setChosenChain={setChosenChain} />}
       {activeStep == 3 && <ProveClaimStep selectedProvider={selectedProvider} handleSetProof={(proof: Proof) => {setProof(proof)}} />}
-      {activeStep == 4 && <PublishStep proof={proof} />}
+      {activeStep == 4 && <PublishStep proof={proof} chosenChain={chosenChain} provider={selectedProvider} />}
       <Flex gap={4}>
         {activeStep > 1 && (
           <Button
