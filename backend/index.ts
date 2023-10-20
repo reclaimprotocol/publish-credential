@@ -110,23 +110,23 @@ app.post('/callback', async (req, res) => {
 // endpoint where the frontend queries for the proof received from reclaim
 app.get('/get-proofs/', async (req, res) => {
   try {
-    res.json([
-  {
-    templateClaimId: 'da3ee9ee-a70f-4a98-9528-f086fa1bc5e6',
-    provider: 'google-login',
-    parameters: '{"emailAddress":"haidarjbeily76@gmail.com"}',
-    ownerPublicKey: '028e2ad4e0a9afb164dc17b6e148ed2821f8c34a10383addeac025480b30bbd82f',
-    timestampS: '1697838089',
-    witnessAddresses: [ 'https://reclaim-node.questbook.app' ],
-    signatures: [
-      '0xe2e3b1eac0c2eda4823164917a663149f8222bb19e2b0b462e5cd5500ee6a5821b16a3364868ac15ea03e6a303f8c933331e6df89993963510072727b198d1eb1c'
-    ],
-    redactedParameters: '{"emailAddress":"**************@gmail.com"}',
-    context: '{"contextAddress":"0x0","contextMessage":"0x318aa2410f8faf2495362508dd9a765366845f619dd85f54f4b6d5822dd2f5f3","sessionId":"781b8ea5-1e8c-4ccb-a44f-3aa4ec93fc4e"}',
-    epoch: 2,
-    identifier: '0x450550f75e697d99e28ed1be9a04d948003a458a9a7adbb6dfa8a410c504c160'
-  }
-])
+    // res.json([
+//   {
+//     templateClaimId: 'da3ee9ee-a70f-4a98-9528-f086fa1bc5e6',
+//     provider: 'google-login',
+//     parameters: '{"emailAddress":"haidarjbeily76@gmail.com"}',
+//     ownerPublicKey: '028e2ad4e0a9afb164dc17b6e148ed2821f8c34a10383addeac025480b30bbd82f',
+//     timestampS: '1697838089',
+//     witnessAddresses: [ 'https://reclaim-node.questbook.app' ],
+//     signatures: [
+//       '0xe2e3b1eac0c2eda4823164917a663149f8222bb19e2b0b462e5cd5500ee6a5821b16a3364868ac15ea03e6a303f8c933331e6df89993963510072727b198d1eb1c'
+//     ],
+//     redactedParameters: '{"emailAddress":"**************@gmail.com"}',
+//     context: '{"contextAddress":"0x0","contextMessage":"0x318aa2410f8faf2495362508dd9a765366845f619dd85f54f4b6d5822dd2f5f3","sessionId":"781b8ea5-1e8c-4ccb-a44f-3aa4ec93fc4e"}',
+//     epoch: 2,
+//     identifier: '0x450550f75e697d99e28ed1be9a04d948003a458a9a7adbb6dfa8a410c504c160'
+//   }
+// ])
     // return
     const { id: callbackId } = req.query
     const db = client.db()
