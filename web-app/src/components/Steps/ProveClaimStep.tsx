@@ -10,8 +10,8 @@ import { providerType } from '../../utils/types'
 
 
 const backendBase = '/api'
-const backendTemplateUrl = `${backendBase}/request-proofs`
-const backendProofUrl = `${backendBase}/get-proofs/`
+const backendTemplateUrl = `${backendBase}/prove`
+const backendProofUrl = `${backendBase}/get-proof`
 
 export function ProveClaimStep ({selectedProvider, handleSetProof}: {selectedProvider: providerType | undefined, handleSetProof: (proof: Proof) => void}) {
   const toast = useToast()
