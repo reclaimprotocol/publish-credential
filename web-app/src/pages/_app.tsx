@@ -1,6 +1,6 @@
 'use client'
 import { AppProps } from 'next/app'
-import { Providers } from './providers'
+import { Providers } from '../components/providers'
 import Head from 'next/head'
 
 
