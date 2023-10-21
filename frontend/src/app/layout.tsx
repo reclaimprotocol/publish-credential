@@ -15,13 +15,6 @@ import { Providers } from './providers'
 export const metadata = {
   title: 'Publish Credintials - Reclaim'
 }
-export const dynamic = 'force-dynamic'
-export const dynamicParams = true
-export const revalidate = false
-export const fetchCache = 'auto'
-export const runtime = 'nodejs'
-export const preferredRegion = 'auto'
-export const maxDuration = 5
 
 // const config: Config = {
 //   readOnlyChainId: Polygon.chainId,

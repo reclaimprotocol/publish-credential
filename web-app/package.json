@@ -15,6 +15,7 @@
     "@chakra-ui/theme-tools": "^2.0.12",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@ethereum-attestation-service/eas-sdk": "^1.2.1-beta.1",
     "@next/font": "13.0.3",
     "@reclaimprotocol/crypto-sdk": "file:./crypto-sdk",
     "@reclaimprotocol/reclaim-sdk": "^5.2.0",
@@ -24,7 +25,7 @@
     "@semaphore-protocol/proof": "^3.11.0",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
-    "connectkit": "^1.5.3",
+    "connectkit": "^1.4.0",
     "dotenv": "^16.0.3",
     "ethers": "^6.7.1",
     "framer-motion": "^7.6.6",
@@ -35,10 +36,10 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
-    "typescript": "^5.0.4",
     "react-qr-code": "^2.0.12",
     "react-select": "^5.7.7",
     "styled-components": "^6.1.0",
+    "typescript": "^5.0.4",
     "viem": "~0.3.36",
     "wagmi": "^1.0.6"
   }

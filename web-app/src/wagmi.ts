@@ -2,7 +2,6 @@ import { getDefaultConfig } from 'connectkit'
 import { arbitrum, arbitrumGoerli, lineaTestnet, optimism, polygon, polygonMumbai, optimismGoerli} from 'viem/chains'
 import { createConfig } from 'wagmi'
 import { Chain } from '@wagmi/core'
-import { Mumbai } from '@usedapp/core'
  
 const walletConnectProjectId = '6be37cda619abec4b33405f0a4bfd410'
 

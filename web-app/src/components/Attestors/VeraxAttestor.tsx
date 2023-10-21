@@ -39,7 +39,7 @@ export default function VeraxAttestor ({
         signatures: proof.signatures,
         claim: {
           identifier: proof.identifier,
-          owner: ethers.utils.computeAddress(`0x${proof.ownerPublicKey}`),
+          owner: ethers.computeAddress(`0x${proof.ownerPublicKey}`),
           timestampS: proof.timestampS,
           epoch: proof.epoch
         }

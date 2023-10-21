@@ -2,7 +2,10 @@
 import { AppProps } from 'next/app'
 import { Providers } from './providers'
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
+
+
+export const dynamic = 'force-dynamic'
+
 
 function App ({ Component, pageProps }: AppProps) {
   return (
@@ -41,6 +44,3 @@ function App ({ Component, pageProps }: AppProps) {
   )
 }
 
-export default dynamic(() => Promise.resolve(App), {
-  ssr: false
-})
