@@ -1,4 +1,4 @@
-import { Button, Spinner } from '@chakra-ui/react'
+import { Button, Spinner, useToast } from '@chakra-ui/react'
 import { Proof } from '@reclaimprotocol/reclaim-sdk'
 import { Identity } from '@semaphore-protocol/identity'
 import { ethers } from 'ethers'
@@ -10,6 +10,8 @@ import {
   useWaitForTransaction
 } from 'wagmi'
 import { getSchemaId } from '../../utils/get-schema-id'
+import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
+import { CustomModal } from './CustomModal'
 
 export default function VeraxAttestor ({
   provider,
@@ -23,7 +25,7 @@ export default function VeraxAttestor ({
   const [isPrepared, setIsPrepared] = useState(false)
   const [attestationId, setAttestationId] = useState(null)
   const [attestationRequest, setAttestationRequest] = useState(null)
-
+  const toast = useToast()
 
   useEffect(() => {
     if (proof == undefined) return
@@ -56,7 +58,7 @@ export default function VeraxAttestor ({
     setAttestationRequest(ad as any)
   }, [proof, address, provider])
 
-  const contractAddress = '0x7C2421aBbbA532a387A2c074545C1B5e3435F6D4'
+  const contractAddress = '0x5Da495e845f9242766AD97E8D09EAcc4004aBeDc'
 
   //@ts-ignore
   const { config } = usePrepareContractWrite({
@@ -170,7 +172,7 @@ export default function VeraxAttestor ({
     ],
     functionName: 'attest',
     args: [attestationRequest],
-    chainId: 59144,
+    chainId: reclaimNetworksAddresses['optimism-goerli']['chainId'],
     onSuccess (data) {
       console.log('Successful - register prepare: ', data)
       setIsPrepared(true)
@@ -184,6 +186,14 @@ export default function VeraxAttestor ({
   const waitForTransaction = useWaitForTransaction({
     hash: data?.hash,
     onSettled (data, error) {
+      toast({
+        'title':'Attestation published',
+        description:'Verax register your attestation',
+        duration:5000,
+        isClosable:true,
+        position:'top-right',
+        status:'success'
+      })
       const response = data ? data.logs[0].topics[1] : []
       console.log('Settled', response)
       setAttestationId(response as any)
@@ -192,7 +202,9 @@ export default function VeraxAttestor ({
 
   return (
     <>
-      <Button onClick={()=>{write?.()}}>Publish with Verax {isLoading && <Spinner />}</Button>
+      <Button colorScheme = 'blue' onClick={()=>{write?.()}}>Publish with Verax {isLoading && <Spinner />}</Button>
+      {attestationId && <CustomModal attestationId={attestationId} />}
+
     </>
   )
 }

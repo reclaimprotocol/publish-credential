@@ -1,5 +1,5 @@
 import { getDefaultConfig } from 'connectkit'
-import { arbitrum, arbitrumGoerli, lineaTestnet, optimism, polygon, polygonMumbai, } from 'viem/chains'
+import { arbitrum, arbitrumGoerli, lineaTestnet, optimism, polygon, polygonMumbai, optimismGoerli} from 'viem/chains'
 import { createConfig } from 'wagmi'
 import { Chain } from '@wagmi/core'
 import { Mumbai } from '@usedapp/core'
@@ -34,7 +34,7 @@ export const linea = {
 export const config = createConfig(
   getDefaultConfig({
     autoConnect: true,
-    chains:[linea, polygon, polygonMumbai, arbitrum, optimism],
+    chains:[linea, polygon, polygonMumbai, arbitrum, optimismGoerli],
     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
     appName: 'Publish Credintials - Reclaim',
     walletConnectProjectId,

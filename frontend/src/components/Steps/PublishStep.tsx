@@ -43,7 +43,7 @@ console.log(proof)
       <Stack h={'100%'} w={'xl'} gap={6}>
         <Button colorScheme='blue' onClick={handleDisco}>Publish With Disco</Button>
         {/* <Button colorScheme='blue'>Publish With Ceramic</Button> */}
-        {chosenChain.includes('linea')  && <VeraxAttestor proof={proof} provider={provider?.value.providerId} />}
+        {chosenChain.includes('optim')  && <VeraxAttestor proof={proof} provider={provider?.value.providerId} />}
         {/* {chosenChain.includes('arb') && <ArbitrumAttestor proof={proof} provider={provider?.value.providerId} />}
         {chosenChain.includes('opt') && <OptimismAttestor proof={proof} provider={provider?.value.providerId} />} */}
       </Stack>
