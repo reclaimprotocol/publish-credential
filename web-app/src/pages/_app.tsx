@@ -2,18 +2,9 @@
 import { AppProps } from 'next/app'
 import { Providers } from '../components/providers'
 import Head from 'next/head'
+import dynamic from 'next/dynamic'
 
-
-export const dynamic = 'force-dynamic'
-export const dynamicParams = true
-export const revalidate = false
-export const fetchCache = 'auto'
-export const runtime = 'nodejs'
-export const preferredRegion = 'auto'
-export const maxDuration = 5
-
-
-export function App ({ Component, pageProps }: AppProps) {
+function App ({ Component, pageProps }: AppProps) {
   return (
     <html lang='en'>
       <Head>
@@ -50,3 +41,6 @@ export function App ({ Component, pageProps }: AppProps) {
   )
 }
 
+export default dynamic(() => Promise.resolve(App), {
+  ssr: false
+})
