@@ -1,3 +1,4 @@
+'use client'
 //@ts-nocheck
 import axios from 'axios'
 import {
@@ -14,10 +15,12 @@ export const fetchAllCustomProviders = async() => {
 			const { customProvidersWithSubProviders } = data
 
 			const providerOptions = customProvidersWithSubProviders.map(
+				//@ts-ignore
 				(provider) => ({
 					value: provider.parentProviderName,
 					label: provider.providerDisplayName,
 					logo: provider.logoUrl,
+					//@ts-ignore
 					isUserInputRequired: provider.subProviders.some((e) => e.form),
 					subProviders: provider.subProviders,
 				})
@@ -32,8 +35,10 @@ export const fetchAllCustomProviders = async() => {
 			})
 
 			// Grouping for dropdown option
+			//@ts-ignore
 			const groupedOptions = providerOptions.map((p) => ({
 				label: p.label,
+				//@ts-ignore
 				options: p.subProviders.map((pro) => {
 					if(p.label === 'Community') {
 						return {

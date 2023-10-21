@@ -5,9 +5,15 @@ import Head from 'next/head'
 
 
 export const dynamic = 'force-dynamic'
+export const dynamicParams = true
+export const revalidate = false
+export const fetchCache = 'auto'
+export const runtime = 'nodejs'
+export const preferredRegion = 'auto'
+export const maxDuration = 5
 
 
-function App ({ Component, pageProps }: AppProps) {
+export function App ({ Component, pageProps }: AppProps) {
   return (
     <html lang='en'>
       <Head>
