@@ -18,19 +18,42 @@ export default async function handler (
   res: NextApiResponse
 ) {
   try {
-    const { providerId: providerId } = req.query
+    const { provider } = req.query
     const randNum = Math.random() * 100000
+    const providerData = JSON.parse(provider as string)
+    console.log(providerData || 'No body data')
+    console.log({
+                    name: providerData.value.name,
+                    logoUrl: providerData.value.logoUrl,
+                    url: providerData.value.url,
+                    loginUrl: providerData.value.loginUrl,
+                    loginCookies: providerData.value.loginCookies,
+                    responseSelection: providerData.value.responseSelections,
+                    useZk: true
+                })
+    let requestedProof
+    if (providerData.type === 'http') {
+      //@ts-ignore
+      requestedProof = new reclaim.HttpsProvider({
+                    name: providerData.value.name,
+                    logoUrl: providerData.value.logoUrl,
+                    url: providerData.value.url,
+                    loginUrl: providerData.value.loginUrl,
+                    loginCookies: providerData.value.loginCookies,
+                    responseSelection: providerData.value.responseSelections,
+                    useZk: true
+                })
+    } else {
+      requestedProof = new reclaim.CustomProvider({
+                provider: providerData.value.providerId,
+                payload: {}
+      })
+    }
     const request = reclaim.requestProofs({
       title: 'Credintials Publisher',
       baseCallbackUrl: callbackBase + '/api/callback',
       callbackId: ethers.parseUnits(randNum.toString(), 18).toString(),
-      requestedProofs: [
-        new reclaim.CustomProvider({
-          //@ts-ignore
-          provider: providerId,
-          payload: {}
-        })
-      ]
+      requestedProofs: [requestedProof]
     })
 
     const reclaimUrl = await request.getReclaimUrl({ shortened: true })

@@ -18,6 +18,7 @@ export default function ProviderSelectInput ({
     if (providers) {
       setProviderOptions(providers)
     }
+    console.log(providers.filter((provider: any) => provider.options[0].type === 'http'))
   }
 
   useEffect(() => {

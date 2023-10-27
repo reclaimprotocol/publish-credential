@@ -8,12 +8,17 @@ import QRCode from 'react-qr-code'
 import { Spinner, Center, useToast } from '@chakra-ui/react'
 import { providerType } from '../../utils/types'
 
-
 const backendBase = '/api'
 const backendTemplateUrl = `${backendBase}/prove`
 const backendProofUrl = `${backendBase}/get-proof`
 
-export function ProveClaimStep ({selectedProvider, handleSetProof}: {selectedProvider: providerType | undefined, handleSetProof: (proof: Proof) => void}) {
+export function ProveClaimStep ({
+  selectedProvider,
+  handleSetProof
+}: {
+  selectedProvider: providerType | undefined
+  handleSetProof: (proof: Proof) => void
+}) {
   const toast = useToast()
   const { address } = useAccount()
   const [template, setTemplate] = useState('')
@@ -24,7 +29,7 @@ export function ProveClaimStep ({selectedProvider, handleSetProof}: {selectedPro
   const [callbackId, setCallbackId] = useState('')
 
   useEffect(() => {
-    if(selectedProvider === undefined)return;
+    if (selectedProvider === undefined) return
     if (!isProofReceived) {
       console.log('Starting to fetch template.')
       handleGetTemplate()
@@ -50,11 +55,11 @@ export function ProveClaimStep ({selectedProvider, handleSetProof}: {selectedPro
         setProofObj(proofData[0])
         handleSetProof(proofData[0])
         toast({
-          'title': 'Proof received',
-          'duration': 4000,
-          'status': 'success',
+          title: 'Proof received',
+          duration: 4000,
+          status: 'success',
           isClosable: true,
-          'position': 'top-right'
+          position: 'top-right'
         })
       }
     } catch (error) {
@@ -62,7 +67,7 @@ export function ProveClaimStep ({selectedProvider, handleSetProof}: {selectedPro
       console.log(error)
     }
   }
-console.log(proofObj)
+  console.log(proofObj)
   const handleGetTemplate = async () => {
     if (isTemplateOk && template) {
       console.log('The template is already received.')
@@ -71,7 +76,11 @@ console.log(proofObj)
     setIsLoadingTemplate(true)
     try {
       console.log(`Requesting ${backendTemplateUrl}?userAddr=${address}`)
-      const response = await fetch(`${backendTemplateUrl}?userAddr=${address}&providerId=${selectedProvider?.value.providerId}`)
+      const response = await fetch(
+        `${backendTemplateUrl}?userAddr=${address}&provider=${JSON.stringify(
+          selectedProvider
+        )}`
+      )
       if (response.ok) {
         const data = await response.json()
         if (data?.error) {
@@ -98,20 +107,22 @@ console.log(proofObj)
     return
   }
 
-  return <>
-  {
-  isProofReceived &&
-    <Center>
-        <Text fontSize={'2xl'}>We got your proof! Please Continue to the final Step...</Text>
-    </Center>
-  
-  }
-  {
-  !isProofReceived && template && isTemplateOk && (
+  return (
     <>
-      <Text>Scan/Click the QR code to be redirected to Reclaim Wallet.</Text>
-      <Divider />
-      <Flex justifyContent={'center'}>
+      {isProofReceived && (
+        <Center>
+          <Text fontSize={'2xl'}>
+            We got your proof! Please Continue to the final Step...
+          </Text>
+        </Center>
+      )}
+      {!isProofReceived && template && isTemplateOk && (
+        <>
+          <Text>
+            Scan/Click the QR code to be redirected to Reclaim Wallet.
+          </Text>
+          <Divider />
+          <Flex justifyContent={'center'}>
             <a
               href={template}
               target='_blank'
@@ -127,29 +138,20 @@ console.log(proofObj)
               />
             </a>
           </Flex>
+        </>
+      )}
+      {!isProofReceived && isTemplateOk && (
+        <Flex flex='1' width='full' justifyContent='center'>
+          <Spinner />
+          <Text>Listening to get your proof </Text>
+        </Flex>
+      )}
+      {!isTemplateOk && (
+        <Flex flex='1' width='full' justifyContent='center'>
+          <Spinner />
+          <Text>Loading QR Code Template</Text>
+        </Flex>
+      )}
     </>
-    )
-  
-}
-{
-  !isProofReceived && isTemplateOk && (
-    <Flex flex='1' width='full' justifyContent='center'>
-      <Spinner />
-      <Text>Listening to get your proof </Text>
-    </Flex>
   )
-}
-{
-  !isTemplateOk && (
-    <Flex flex='1' width='full' justifyContent='center'>
-      <Spinner />
-      <Text>Loading QR Code Template</Text>
-    </Flex>
-  )
-}
-
-  
-  
-  
-  </>
 }

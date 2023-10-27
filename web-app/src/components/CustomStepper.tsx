@@ -41,7 +41,6 @@ export function CustomStepper () {
     index: 1,
     count: steps.length
   })
-
   
 
   return (
