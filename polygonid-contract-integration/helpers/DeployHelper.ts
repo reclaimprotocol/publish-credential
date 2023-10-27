@@ -12,13 +12,13 @@ const SMT_MAX_DEPTH = 64;
 export class DeployHelper {
   constructor(
     private signers: SignerWithAddress[],
-    private readonly enableLogging: boolean = false
+    private readonly enableLogging: boolean = true
   ) {
   }
 
   static async initialize(
     signers: SignerWithAddress[] | null = null,
-    enableLogging = false
+    enableLogging = true
   ): Promise<DeployHelper> {
     let sgrs;
     if (signers === null) {

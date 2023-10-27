@@ -22,6 +22,7 @@ export class OnchainIdentityDeployHelper {
   }
 
   async deployIdentity(
+    reclaim: string,
     state: Contract,
     smtLib: Contract,
     poseidon1: Contract,
@@ -39,14 +40,14 @@ export class OnchainIdentityDeployHelper {
     const il = await this.deployIdentityLib(smtLib.address, poseidon3.address, poseidon4.address);
 
     this.log("deploying Identity...");
-    const IdentityFactory = await ethers.getContractFactory("IdentityExample", {
+    const IdentityFactory = await ethers.getContractFactory("IdentityWithReclaim", {
       libraries: {
         ClaimBuilder: cb.address,
         IdentityLib: il.address,
       },
     });
     // const IdentityFactory = await ethers.getContractFactory("Identity");
-    const Identity = await upgrades.deployProxy(IdentityFactory, [state.address], {
+    const Identity = await upgrades.deployProxy(IdentityFactory, [state.address, reclaim], {
       unsafeAllowLinkedLibraries: true,
     });
     await Identity.deployed();

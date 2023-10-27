@@ -5,6 +5,7 @@ import {IOnchainCredentialStatusResolver} from "../interfaces/IOnchainCredential
 import {IState} from "../interfaces/IState.sol";
 import {IdentityLib} from "../lib/IdentityLib.sol";
 import {SmtLib} from "../lib/SmtLib.sol";
+import {IReclaim} from "../interfaces/IReclaim.sol";
 
 // /**
 //  * @dev Contract managing onchain identity
@@ -19,7 +20,7 @@ abstract contract IdentityBase is IOnchainCredentialStatusResolver {
     using IdentityLib for IdentityLib.Data;
 
     IdentityLib.Data internal identity;
-
+    IReclaim internal Reclaim;
     // This empty reserved space is put in place to allow future versions
     // of this contract to add new variables without shifting down
     // storage of child contracts that use this contract as a base
@@ -38,8 +39,9 @@ abstract contract IdentityBase is IOnchainCredentialStatusResolver {
      * @dev Initialization of IdentityLib library
      * @param _stateContractAddr - address of the State contract
      */
-    function initialize(address _stateContractAddr) public virtual {
+    function initialize(address _stateContractAddr, address _reclaimContractAddr) public virtual {
         identity.initialize(_stateContractAddr, address(this), getSmtDepth());
+        Reclaim = IReclaim(_reclaimContractAddr);
     }
 
     /**

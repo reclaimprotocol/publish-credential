@@ -9,6 +9,7 @@ async function main() {
     const deployHelper = await OnchainIdentityDeployHelper.initialize();
     const stContracts = await stDeployHelper.deployState();
     const contracts = await deployHelper.deployIdentity(
+      "0xd6534f52CEB3d0139b915bc0C3278a94687fA5C7",
       stContracts.state,
       stContracts.smtLib,
       stContracts.poseidon1,

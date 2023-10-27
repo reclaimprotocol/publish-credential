@@ -5,6 +5,8 @@ import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
 import "@openzeppelin/hardhat-upgrades";
+import 'dotenv/config';
+
 
 const DEFAULT_MNEMONIC =
   "test test test test test test test test test test test junk";
@@ -40,10 +42,10 @@ const config: HardhatUserConfig = {
     //   accounts: [`0x${process.env.MAIN_PRIVATE_KEY}`],
     // },
     // mumbai: {
-    //   chainId: 80001,
-    //   url: `${process.env.MUMBAI_RPC_URL}`,
+      //   chainId: 80001,
+      //   url: `${process.env.MUMBAI_RPC_URL}`,
     //   accounts: [`0x${process.env.MUMBAI_PRIVATE_KEY}`],
-    // },
+      // },
     localhost: {
       url: "http://127.0.0.1:8545",
       accounts: {

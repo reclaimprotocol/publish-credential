@@ -8,6 +8,8 @@ import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
 // import ArbitrumAttestor from '../Attestors/ArbitrumAttestor'
 // import OptimismAttestor from '../Attestors/OptimismAttestor'
 import VeraxAttestor from '../Attestors/VeraxAttestor'
+import PolygonAttestor from '../Attestors/PolygonAttestor'
+
 
 export function PublishStep ({ proof, chosenChain, provider }: { proof: Proof | undefined, chosenChain: keyof typeof reclaimNetworksAddresses, provider: any }) {
   const toast = useToast()
@@ -46,7 +48,9 @@ console.log(proof)
         {chosenChain.includes('optim')  && <VeraxAttestor proof={proof} provider={provider?.value.providerId} />}
         {/* {chosenChain.includes('arb') && <ArbitrumAttestor proof={proof} provider={provider?.value.providerId} />}
         {chosenChain.includes('opt') && <OptimismAttestor proof={proof} provider={provider?.value.providerId} />} */}
+        {chosenChain.includes('olygon') && <PolygonAttestor proof={proof} provider={provider?.value.providerId} />} 
       </Stack>
     </Center>
   )
+
 }
