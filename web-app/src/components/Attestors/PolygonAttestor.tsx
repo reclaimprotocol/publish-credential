@@ -11,7 +11,6 @@ import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
 import RECLAIM_WITH_IDENTITY from '../../IdentityWithReclaim.json'
 import { Button, Flex, Spinner, Text, useToast, Link } from '@chakra-ui/react'
 
-
 export default function PolygonAttestor ({
   provider,
   proof
@@ -23,6 +22,7 @@ export default function PolygonAttestor ({
   const [hashValue, setHashValue] = useState<string | undefined>(undefined)
   const [proofReq, setProofReq] = useState<any>(null)
   const [tranactionHash, setTransactionHash] = useState<any>(null)
+  const [isPrepared, setIsPrepared] = useState(false)
 
   const [settled, setSettled] = useState(false)
   const toast = useToast()
@@ -61,13 +61,22 @@ export default function PolygonAttestor ({
     args: [hashIndex, hashValue, proofReq],
     chainId: reclaimNetworksAddresses['polygon-mumbai']['chainId'],
     onSuccess (data) {
+      setIsPrepared(true)
       console.log('Successful - register prepare: ', data)
     },
     onError (error) {
       console.log(error)
+      toast({
+        title: 'Error',
+        description: error.message,
+        duration: 5000,
+        isClosable: true,
+        position: 'top-right',
+        status: 'error'
+      })
     }
   })
-  const { data, write, isLoading } = useContractWrite(config)
+  const { data, write, isLoading, isIdle, isError } = useContractWrite(config)
 
   const waitForTransaction = useWaitForTransaction({
     hash: data?.hash,
@@ -89,15 +98,20 @@ export default function PolygonAttestor ({
 
   return (
     <>
-      <Button
+
+
+      {(!isPrepared) && <>
+        <Text>Preparing(Publish with Polygon Identity)<Spinner /></Text>
+      </>}
+      {isPrepared && !isError && <Button
         colorScheme='blue'
         onClick={() => {
           write?.()
         }}
       >
-        Publish with Polygon Identity {isLoading && <Spinner />}
-      </Button>
-      
+        Publish with Polygon Identity {isLoading && isIdle && <Spinner />}
+      </Button>}
+
       {settled && (
         <Flex gap={'10px'} flexDirection={'column'}>
           <Link
@@ -108,14 +122,12 @@ export default function PolygonAttestor ({
             Go to transaction
           </Link>
 
-          <Flex gap='10px'  flexWrap={'wrap'}>
-              <Text>Hash Index:</Text>
-              <Text>{hashIndex}</Text>
+          <Flex gap='10px' flexWrap={'wrap'}>
+            <Text>Hash Index:</Text>
+            <Text>{hashIndex}</Text>
           </Flex>
-          
         </Flex>
       )}
-      
     </>
   )
 }
