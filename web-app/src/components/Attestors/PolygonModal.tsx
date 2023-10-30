@@ -58,7 +58,7 @@ export function PolygonModal ({ hashIndex }: { hashIndex: string | undefined }) 
                     return (
                       <Container key={key}>
                         <Text fontSize='small'>{value[0]}</Text>
-                        <Text>{value[1].toString() as string|string[]}</Text>
+                        <Text>{(value[1] as any).toString()}</Text>
                         <Divider />
                       </Container>
                     )
