@@ -10,6 +10,7 @@ import {
 import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
 import RECLAIM_WITH_IDENTITY from '../../IdentityWithReclaim.json'
 import { Button, Flex, Spinner, Text, useToast, Link } from '@chakra-ui/react'
+import { PolygonModal } from './PolygonModal'
 
 export default function PolygonAttestor ({
   provider,
@@ -23,6 +24,8 @@ export default function PolygonAttestor ({
   const [proofReq, setProofReq] = useState<any>(null)
   const [tranactionHash, setTransactionHash] = useState<any>(null)
   const [isPrepared, setIsPrepared] = useState(false)
+  const [isClicked, setIsClicked] = useState(false)
+
 
   const [settled, setSettled] = useState(false)
   const toast = useToast()
@@ -93,6 +96,7 @@ export default function PolygonAttestor ({
       console.log('Settled', response)
       setSettled(true)
       setTransactionHash(data?.transactionHash)
+      setIsClicked(false)
     }
   })
 
@@ -104,16 +108,20 @@ export default function PolygonAttestor ({
         <Text>Preparing(Publish with Polygon Identity)<Spinner /></Text>
       </>}
       {isPrepared && !isError && <Button
+
+      disabled={isClicked}
         colorScheme='blue'
         onClick={() => {
           write?.()
+          setIsClicked(true)
         }}
       >
-        Publish with Polygon Identity {isLoading && isIdle && <Spinner />}
+        Publish with Polygon Identity {isLoading && <Spinner />}
       </Button>}
 
       {settled && (
         <Flex gap={'10px'} flexDirection={'column'}>
+          <PolygonModal hashIndex={hashIndex} />
           <Link
             color={'blue.400'}
             href={`https://mumbai.polygonscan.com/tx/${tranactionHash}`}
