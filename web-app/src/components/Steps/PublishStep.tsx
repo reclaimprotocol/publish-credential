@@ -43,7 +43,7 @@ console.log(proof)
   return (
     <Center>
       <Stack h={'100%'} w={'xl'} gap={6}>
-        <Button colorScheme='blue' onClick={handleDisco}>Publish With Disco</Button>
+        {chosenChain.includes('arb')  &&<Button colorScheme='blue' onClick={handleDisco}>Publish With Disco</Button>}
         {/* <Button colorScheme='blue'>Publish With Ceramic</Button> */}
         {chosenChain.includes('optim')  && <VeraxAttestor proof={proof} provider={provider?.value.providerId} />}
         {/* {chosenChain.includes('arb') && <ArbitrumAttestor proof={proof} provider={provider?.value.providerId} />}

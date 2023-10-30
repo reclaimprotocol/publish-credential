@@ -4,11 +4,11 @@ export const reclaimNetworksAddresses = {
     name: 'Polygon mumbai',
     chainId: 80001,
   },
-  'linea': {
-    address: '0xf223E215B2c9A2E5FE1B2971d5694684b2E734C1',
-    name: 'Linea mainnet',
-    chainId: 59144
-  },
+  // 'linea': {
+  //   address: '0xf223E215B2c9A2E5FE1B2971d5694684b2E734C1',
+  //   name: 'Linea mainnet',
+  //   chainId: 59144
+  // },
   'optimism-goerli': {
     address: '0x2f0306D698685BEf7ff50745BFF7178F0d117ba8',
     name: 'Optimism testnet',
@@ -21,7 +21,7 @@ export const reclaimNetworksAddresses = {
   // },
   'arbitrum-one': {
     address: '0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1',
-    name: 'Arbitrum mainnet',
+    name: 'Disco on Ethereum',
     chainId: 42161
   },
   // 'optimism': {
