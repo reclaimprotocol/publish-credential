@@ -9,7 +9,8 @@ import {
 } from 'wagmi'
 import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
 import RECLAIM_WITH_IDENTITY from '../../IdentityWithReclaim.json'
-import { Button, Spinner } from '@chakra-ui/react'
+import { Button, Flex, Spinner, Text, useToast, Link } from '@chakra-ui/react'
+
 
 export default function PolygonAttestor ({
   provider,
@@ -21,6 +22,10 @@ export default function PolygonAttestor ({
   const [hashIndex, setHashIndex] = useState<string | undefined>(undefined)
   const [hashValue, setHashValue] = useState<string | undefined>(undefined)
   const [proofReq, setProofReq] = useState<any>(null)
+  const [tranactionHash, setTransactionHash] = useState<any>(null)
+
+  const [settled, setSettled] = useState(false)
+  const toast = useToast()
   useEffect(() => {
     if (proof == undefined) return
     const proofReqBef = {
@@ -64,14 +69,53 @@ export default function PolygonAttestor ({
   })
   const { data, write, isLoading } = useContractWrite(config)
 
-  return (<>
-    <Button
-      colorScheme='blue'
-      onClick={() => {
-        write?.()
-      }}
-    >
-      Publish with Polygon Identity {isLoading && <Spinner />}
-    </Button>
-  </>)
+  const waitForTransaction = useWaitForTransaction({
+    hash: data?.hash,
+    onSettled (data, error) {
+      toast({
+        title: 'Polygon claim published',
+        description: data?.transactionHash,
+        duration: 5000,
+        isClosable: true,
+        position: 'top-right',
+        status: 'success'
+      })
+      const response = data ? data.logs[0].topics[1] : []
+      console.log('Settled', response)
+      setSettled(true)
+      setTransactionHash(data?.transactionHash)
+    }
+  })
+
+  return (
+    <>
+      <Button
+        colorScheme='blue'
+        onClick={() => {
+          write?.()
+        }}
+      >
+        Publish with Polygon Identity {isLoading && <Spinner />}
+      </Button>
+      
+      {settled && (
+        <Flex gap={'10px'} flexDirection={'column'}>
+          <Link
+            color={'blue.400'}
+            href={`https://mumbai.polygonscan.com/tx/${tranactionHash}`}
+            isExternal
+          >
+            Go to transaction
+          </Link>
+
+          <Flex gap='10px'  flexWrap={'wrap'}>
+              <Text>Hash Index:</Text>
+              <Text>{hashIndex}</Text>
+          </Flex>
+          
+        </Flex>
+      )}
+      
+    </>
+  )
 }
