@@ -33,7 +33,7 @@ export const linea = {
 export const config = createConfig(
   getDefaultConfig({
     autoConnect: true,
-    chains:[polygonMumbai, linea, polygon , arbitrum, optimismGoerli],
+    chains:[polygonMumbai, linea, polygon , arbitrum, optimismGoerli, optimism],
     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
     appName: 'Publish Credintials - Reclaim',
     walletConnectProjectId,

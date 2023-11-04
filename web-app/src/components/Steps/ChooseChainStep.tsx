@@ -41,7 +41,7 @@ export const ChooseChainStep = ({
     const networkDetails = reclaimNetworksAddresses[event.target.value]
     if (networkDetails['chainId'] !== chain?.id) {
       try {
-        if(networkDetails['chainId'] !== 42161)
+        if(networkDetails['chainId'] !== -1)
         switchNetwork(networkDetails['chainId'])
       } catch (error) {
         toast({
