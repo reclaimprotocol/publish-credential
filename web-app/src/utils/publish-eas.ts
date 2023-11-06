@@ -13,12 +13,16 @@ export async function getToPublishEASData (
 ): Promise<AttestationRequest> {
   const schemaItemsRaw = schema.split(',')
   const schemaItems = []
+  const params =
+    proof.extractedParameterValues == undefined
+      ? JSON.parse(proof.parameters as string)
+      : proof.extractedParameterValues
   for (let item of schemaItemsRaw) {
     const fItem = item.split(' ')
     schemaItems.push({
       type: fItem[0],
       name: fItem[1],
-      value: JSON.parse(proof.parameters as string)[fItem[1]]
+      value: params[fItem[1]]
     })
   }
   console.log('Schema Items', schemaItems)
