@@ -298,9 +298,9 @@
     ]
   },
   {
-    "schema": "int256 userId",
+    "schema": "uint256 YC_USER_ID",
     "isRegistered": true,
-    "uid": "0x2640f630bd6ac085242e3d9aedbad54521d5897462204470a55da0c1f00e47dd",
+    "uid": "0x78322a112b4332dd69e4b70b01d3edd2b29c6d7a70427989c18f0d17c9102958",
     "providers": [
       "yc-login"
     ]
