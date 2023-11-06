@@ -1,5 +1,13 @@
 [
   {
+    "schema": "uint256 rides",
+    "uid": "0x86ca77c3076eafaded8780ae22c5ee9c75c25d0daca175ab537f97bd20fd25de",
+    "providers": [
+      "uber-rides"
+    ],
+    "isRegistered": true
+  },
+  {
     "schema": "string emailAddress",
     "uid": "0x888ed0b41e88a1544d756805742befc06a5fd375e48bfc4acc881981786ef10b",
     "providers": [
