@@ -97,7 +97,7 @@ const generateJsonLdFiles = (
 }
 
 // Example usage
-const schemas: SchemaObject[] = require('./web-app/src/contracts-artifacts/schema-eas.json') // Load your schemas from a file
+const schemas: SchemaObject[] = require('./web-app/src/contracts-artifacts/schema-polygon.json') // Load your schemas from a file
 const outputDirectory = './polygonid-schemas' // Define your output directory
 
 generateJsonLdFiles(schemas, outputDirectory)

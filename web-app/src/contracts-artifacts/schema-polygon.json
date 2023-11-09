@@ -1,0 +1,275 @@
+[
+  {
+    "schema": "uint256 rides",
+    "uid": "0x86ca77c3076eafaded8780ae22c5ee9c75c25d0daca175ab537f97bd20fd25de",
+    "providers": [
+      "uber-rides"
+    ],
+    "isRegistered": true
+  },
+  {
+    "schema": "string emailAddress",
+    "uid": "0x888ed0b41e88a1544d756805742befc06a5fd375e48bfc4acc881981786ef10b",
+    "providers": [
+      "google-login"
+    ],
+    "isRegistered": true
+  },
+  {
+    "schema": "string productName",
+    "isRegistered": true,
+    "uid": "0x990860209948a87bb38e4f8e971865bb256691be1b1b259c2e98bdc6b82b191e",
+    "providers": [
+      "amazon-order-history"
+    ]
+  },
+  {
+    "schema": "string assetName, int256 assetQty",
+    "isRegistered": true,
+    "uid": "0x6c766aa5e8db250c8bd11211c24deb3fc0ee4f2de62798c75b0f94b7dd9f11e2",
+    "providers": [
+      "binance-asset-balance"
+    ]
+  },
+  {
+    "schema": "string userName",
+    "isRegistered": true,
+    "uid": "0xb7b10f8a668272e51b1a2bde4ff196a50d433e04c127585a52c442d85b296ffd",
+    "providers": [
+      "blind-user",
+      "chess-user",
+      "hackerearth-username",
+      "hackerrank-username",
+      "instagram-user",
+      "notion-username",
+      "spotify-username"
+    ]
+  },
+  {
+    "schema": "int256 balance",
+    "isRegistered": true,
+    "uid": "0xc4770ebdcfe64c2a57063f8b45f3df860f536d1b47a14f0bb8f2775255af4c0b",
+    "providers": [
+      "bybit-balance",
+      "coinswitch-balance"
+    ]
+  },
+  {
+    "schema": "int256 profitPercentage",
+    "isRegistered": true,
+    "uid": "0x04443e707340c88f9fe9f36daec751a655b7defc5520561981fc9b4270cca9bb",
+    "providers": [
+      "bybit-spot-pnl"
+    ]
+  },
+  {
+    "schema": "string userName, int256 rating",
+    "isRegistered": true,
+    "uid": "0x28bd7a501c4f1f0b22e84e3a3003496810833db70bd56c7f944ca9efbcc802b2",
+    "providers": [
+      "chess-rating"
+    ]
+  },
+  {
+    "schema": "int256 rating",
+    "isRegistered": true,
+    "uid": "0xac6de55f561acb9fefbdeb08e0bf102a80a194045b6e554686d7cef79dcaa5a9",
+    "providers": [
+      "codeforces-rating"
+    ]
+  },
+  {
+    "schema": "string assetName, int256 balance",
+    "isRegistered": true,
+    "uid": "0x13b2e5b1afa4528b2b220398cb400b5fc9dd39f6f0f0a95616432b32927965a7",
+    "providers": [
+      "coindcx-balance"
+    ]
+  },
+  {
+    "schema": "string username, int256 hackathonCount",
+    "isRegistered": true,
+    "uid": "0xb36bd73aa223d990f26dd1949700ea673b45756615ac10453159e4107e9f4af4",
+    "providers": [
+      "devfolio-hackathon-participated"
+    ]
+  },
+  {
+    "schema": "string username",
+    "isRegistered": true,
+    "uid": "0x663d2fd4df99da9cf54b9635f52dca4670e495a22a56f3c78074c2a3f98aaf65",
+    "providers": [
+      "ebay-user",
+      "lichess-username",
+      "mastodon-user",
+      "soundcloud-username",
+      "twitter-username"
+    ]
+  },
+  {
+    "schema": "string userURL, int256 friendsCount",
+    "isRegistered": true,
+    "uid": "0x814e14beb211b3f3f32b1d63b25f24add3aad5ed5e04df5fa6cd326c42a45c18",
+    "providers": [
+      "facebook-friends-count"
+    ]
+  },
+  {
+    "schema": "string userEmail",
+    "isRegistered": true,
+    "uid": "0x7c295a716e728f11944d7384304f02b7f212a4b789b9972581aaee59335c3e98",
+    "providers": [
+      "flickr-user"
+    ]
+  },
+  {
+    "schema": "string goTribeDetails",
+    "isRegistered": true,
+    "uid": "0xb25ba736599956bcfbdcd9316785687d5e8708cf0383e2a6c4b8ed190eec203e",
+    "providers": [
+      "goibibo"
+    ]
+  },
+  {
+    "schema": "string stockIsin, int256 stockQty",
+    "isRegistered": true,
+    "uid": "0x6264541775b1cbdec6591dbe38fe270797de3e865e75e9a6dec322132682c0b3",
+    "providers": [
+      "groww-stock-balance"
+    ]
+  },
+  {
+    "schema": "string address",
+    "isRegistered": true,
+    "uid": "0x6c78e821002edd2e061328acb2b8cfb26d5c1d666f60fb2a2cef46507816bfe3",
+    "providers": [
+      "irs-address",
+      "uidai-address",
+      "uidai-address"
+    ]
+  },
+  {
+    "schema": "string name",
+    "isRegistered": true,
+    "uid": "0x7288cf58ee5591888d6663ec14d483294690d44faf0da12101fee8cbf9edf7aa",
+    "providers": [
+      "irs-name",
+      "uidai-name"
+    ]
+  },
+  {
+    "schema": "string userId",
+    "isRegistered": true,
+    "uid": "0xcce660053142dbe3f67f8ee58f2c0c7ec3e9a61061230e1c6b4b149260814020",
+    "providers": [
+      "loom-user-id",
+      "quora-user",
+      "venmo-id"
+    ]
+  },
+  {
+    "schema": "string username, int256 followersCount",
+    "isRegistered": true,
+    "uid": "0x26f8d2767c48a7d493c1194441b20c08439189898ee4513c2a61598b35a6b072",
+    "providers": [
+      "medium-followers-count"
+    ]
+  },
+  {
+    "schema": "string email",
+    "isRegistered": true,
+    "uid": "0x764678ab0aa5e92602f7f3620487dff48b6db5bad7f36e7777d74ebadec937f7",
+    "providers": [
+      "proton-mail",
+      "zoho-email"
+    ]
+  },
+  {
+    "schema": "int256 accountType",
+    "isRegistered": true,
+    "uid": "0x55583566495bdcd217bf452fa34c891b7fd674d5e68aa47009c338d2e17191fe",
+    "providers": [
+      "spotify-account-type"
+    ]
+  },
+  {
+    "schema": "int256 orderCount",
+    "isRegistered": true,
+    "uid": "0xf9b34a6f8e9980728be84b03966ac1e90e71d5b66db864bc7f0d4dd0a67c65c9",
+    "providers": [
+      "swiggy-total-count"
+    ]
+  },
+  {
+    "schema": "int256 matchCount, string userId",
+    "isRegistered": true,
+    "uid": "0xee1b016427cd4fe3a0bc447a41a333b6aee8ae9a529c8faa5a65bb1b2fd1604c",
+    "providers": [
+      "tinder-match-count"
+    ]
+  },
+  {
+    "schema": "string followingAccount",
+    "isRegistered": true,
+    "uid": "0xd5a1f8779a950b79d5431feb3e7ad54ee9c891c6ad9f1ff4eadc080f6ec49c93",
+    "providers": [
+      "tumblr-follower"
+    ]
+  },
+  {
+    "schema": "int256 numFollowers",
+    "isRegistered": true,
+    "uid": "0x3533a11a9d36c16c328e583330172df39990b538d0f1a57507affe621f1253b0",
+    "providers": [
+      "twitter-followers-count"
+    ]
+  },
+  {
+    "schema": "string mobile",
+    "isRegistered": true,
+    "uid": "0xaea7dd6f25234e55aec1d7ca03390197606e904671665e9fa599c54a79b3bbd7",
+    "providers": [
+      "uidai-phone"
+    ]
+  },
+  {
+    "schema": "string stateName",
+    "isRegistered": true,
+    "uid": "0x0aa7fc6204ae9d9236597db5ff49861c0fb83b2f6686241b88033cc7b97ddcec",
+    "providers": [
+      "uidai-stateName"
+    ]
+  },
+  {
+    "schema": "string uid",
+    "isRegistered": true,
+    "uid": "0x081e3d517cfa0fa45c61ed9c6aa3562d3c5d13483db8d4a9936ab07dcfef2092",
+    "providers": [
+      "uidai-uid"
+    ]
+  },
+  {
+    "schema": "string userId, string recipientId, int256 amount",
+    "isRegistered": true,
+    "uid": "0xae7af6025f01818dc6b35adbea1cff3d03b561a796a51a3d5b08f3bd0302e853",
+    "providers": [
+      "venmo-transaction"
+    ]
+  },
+  {
+    "schema": "uint256 YC_USER_ID",
+    "isRegistered": true,
+    "uid": "0x78322a112b4332dd69e4b70b01d3edd2b29c6d7a70427989c18f0d17c9102958",
+    "providers": [
+      "yc-login"
+    ]
+  },
+  {
+    "schema": "string userId, int256 orderCount",
+    "isRegistered": true,
+    "uid": "0x20c91a000f6bc7874c94c27703b50966dec0a65073028a02a75de5f2b6a71621",
+    "providers": [
+      "zomato-order-count"
+    ]
+  }
+]
