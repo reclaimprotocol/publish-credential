@@ -1,0 +1,28 @@
+{
+  "@context": [
+    {
+      "@protected": true,
+      "@version": 1.1,
+      "id": "@id",
+      "type": "@type",
+      "chess-user": {
+        "@id": "https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/chess-user.jsonld#chess-user",
+        "@context": {
+          "@propagate": true,
+          "@protected": true,
+          "polygon-vocab": "urn:uuid:6f209f68-2ba9-4114-aa67-577f1717eb2c#",
+          "iden3_serialization": "iden3:v1:slotIndexA=provider&slotIndexB=userName",
+          "xsd": "http://www.w3.org/2001/XMLSchema#",
+          "provider": {
+            "@id": "polygon-vocab:provider",
+            "@type": "xsd:string"
+          },
+          "userName": {
+            "@id": "polygon-vocab:userName",
+            "@type": "xsd:string"
+          }
+        }
+      }
+    }
+  ]
+}

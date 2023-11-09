@@ -1,0 +1,32 @@
+{
+  "@context": [
+    {
+      "@protected": true,
+      "@version": 1.1,
+      "id": "@id",
+      "type": "@type",
+      "devfolio-hackathon-participated": {
+        "@id": "https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/devfolio-hackathon-participated.jsonld#devfolio-hackathon-participated",
+        "@context": {
+          "@propagate": true,
+          "@protected": true,
+          "polygon-vocab": "urn:uuid:6f209f68-2ba9-4114-aa67-577f1717eb2c#",
+          "iden3_serialization": "iden3:v1:slotIndexA=provider&slotIndexB=username&slotValueA=hackathonCount",
+          "xsd": "http://www.w3.org/2001/XMLSchema#",
+          "provider": {
+            "@id": "polygon-vocab:provider",
+            "@type": "xsd:string"
+          },
+          "username": {
+            "@id": "polygon-vocab:username",
+            "@type": "xsd:string"
+          },
+          "hackathonCount": {
+            "@id": "polygon-vocab:hackathonCount",
+            "@type": "xsd:string"
+          }
+        }
+      }
+    }
+  ]
+}

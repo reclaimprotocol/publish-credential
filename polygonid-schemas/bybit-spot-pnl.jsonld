@@ -1,0 +1,28 @@
+{
+  "@context": [
+    {
+      "@protected": true,
+      "@version": 1.1,
+      "id": "@id",
+      "type": "@type",
+      "bybit-spot-pnl": {
+        "@id": "https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/bybit-spot-pnl.jsonld#bybit-spot-pnl",
+        "@context": {
+          "@propagate": true,
+          "@protected": true,
+          "polygon-vocab": "urn:uuid:6f209f68-2ba9-4114-aa67-577f1717eb2c#",
+          "iden3_serialization": "iden3:v1:slotIndexA=provider&slotIndexB=profitPercentage",
+          "xsd": "http://www.w3.org/2001/XMLSchema#",
+          "provider": {
+            "@id": "polygon-vocab:provider",
+            "@type": "xsd:string"
+          },
+          "profitPercentage": {
+            "@id": "polygon-vocab:profitPercentage",
+            "@type": "xsd:string"
+          }
+        }
+      }
+    }
+  ]
+}

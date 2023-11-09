@@ -1,0 +1,28 @@
+{
+  "@context": [
+    {
+      "@protected": true,
+      "@version": 1.1,
+      "id": "@id",
+      "type": "@type",
+      "one-mg": {
+        "@id": "https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/one-mg.jsonld#one-mg",
+        "@context": {
+          "@propagate": true,
+          "@protected": true,
+          "polygon-vocab": "urn:uuid:6f209f68-2ba9-4114-aa67-577f1717eb2c#",
+          "iden3_serialization": "iden3:v1:slotIndexA=provider&slotIndexB==>",
+          "xsd": "http://www.w3.org/2001/XMLSchema#",
+          "provider": {
+            "@id": "polygon-vocab:provider",
+            "@type": "xsd:string"
+          },
+          "=>": {
+            "@id": "polygon-vocab:=>",
+            "@type": "xsd:string"
+          }
+        }
+      }
+    }
+  ]
+}
