@@ -11,15 +11,11 @@
           "@propagate": true,
           "@protected": true,
           "polygon-vocab": "urn:uuid:6f209f68-2ba9-4114-aa67-577f1717eb2c#",
-          "iden3_serialization": "iden3:v1:slotIndexA=provider&slotIndexB=numFollowers",
+          "iden3_serialization": "iden3:v1:slotIndexA=numFollowers",
           "xsd": "http://www.w3.org/2001/XMLSchema#",
-          "provider": {
-            "@id": "polygon-vocab:provider",
-            "@type": "xsd:string"
-          },
           "numFollowers": {
             "@id": "polygon-vocab:numFollowers",
-            "@type": "xsd:string"
+            "@type": "xsd:integer"
           }
         }
       }

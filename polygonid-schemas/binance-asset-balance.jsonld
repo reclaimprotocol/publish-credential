@@ -11,19 +11,15 @@
           "@propagate": true,
           "@protected": true,
           "polygon-vocab": "urn:uuid:6f209f68-2ba9-4114-aa67-577f1717eb2c#",
-          "iden3_serialization": "iden3:v1:slotIndexA=provider&slotIndexB=assetName&slotValueA=assetQty",
+          "iden3_serialization": "iden3:v1:slotIndexA=assetName&slotIndexB=assetQty",
           "xsd": "http://www.w3.org/2001/XMLSchema#",
-          "provider": {
-            "@id": "polygon-vocab:provider",
-            "@type": "xsd:string"
-          },
           "assetName": {
             "@id": "polygon-vocab:assetName",
             "@type": "xsd:string"
           },
           "assetQty": {
             "@id": "polygon-vocab:assetQty",
-            "@type": "xsd:string"
+            "@type": "xsd:integer"
           }
         }
       }

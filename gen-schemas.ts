@@ -18,14 +18,14 @@ const generateIden3Serialization = (parameters: {
 }): string => {
   const parameterKeys = Object.keys(parameters)
 
-  let serialization = `iden3:v1:slotIndexA=provider`
+  let serialization = `iden3:v1:slotIndexA=${parameterKeys[0]}`
 
-  if (parameterKeys.length === 1) {
-    serialization += `&slotIndexB=${parameterKeys[0]}`
-  } else if (parameterKeys.length === 2) {
-    serialization += `&slotIndexB=${parameterKeys[0]}&slotValueA=${parameterKeys[1]}`
+  if (parameterKeys.length === 2) {
+    serialization += `&slotIndexB=${parameterKeys[1]}`
   } else if (parameterKeys.length === 3) {
-    serialization += `&slotIndexB=${parameterKeys[0]}&slotValueA=${parameterKeys[1]}&slotValueB=${parameterKeys[2]}`
+    serialization += `&slotIndexB=${parameterKeys[1]}&slotValueA=${parameterKeys[2]}`
+  } else if (parameterKeys.length === 4) {
+    serialization += `&slotIndexB=${parameterKeys[1]}&slotValueA=${parameterKeys[2]}&slotValueB=${parameterKeys[3]}`
   }
 
   return serialization
@@ -34,6 +34,7 @@ const generateIden3Serialization = (parameters: {
 const parseSchema = (schema: string): { [key: string]: SchemaParameter } => {
   const typesMap: any = {
     uint256: 'xsd:integer',
+    int256: 'xsd:integer',
     string: 'xsd:string'
   }
 
@@ -80,10 +81,6 @@ const generateJsonLdFiles = (
                   'urn:uuid:6f209f68-2ba9-4114-aa67-577f1717eb2c#',
                 iden3_serialization: generateIden3Serialization(parameters),
                 xsd: 'http://www.w3.org/2001/XMLSchema#',
-                provider: {
-                  '@id': 'polygon-vocab:provider',
-                  '@type': 'xsd:string'
-                },
                 ...parameters
               }
             }
