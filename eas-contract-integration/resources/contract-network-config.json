@@ -5,9 +5,10 @@
       "Reclaim": "0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1",
       "EASWithReclaim": "0x90fcd5f9956B55bbe25E037d42137259C4B43C5B"
     },
-    "arb-mainnet": {
+    "arbitrum-mainnet": {
       "EAS": "0xbD75f629A22Dc1ceD33dDA0b68c546A1c035c458",
-      "Reclaim": "0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1"
+      "Reclaim": "0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1",
+      "EASWithReclaim": "0x57567178eD7D9149d7729ce0d880Cd1BF1a9BBb5"
     }
   }
 }

@@ -75,9 +75,9 @@ const config: HardhatUserConfig = {
       // bsc: process.env.BINANCESCAN_API_KEY!
       // lineaGoerli: process.env.LINEASCAN_API_KEY || '',
       // optimisticGoerli: process.env.ETHERSCAN_API_KEY!,
-      optimisticEthereum: process.env.ETHERSCAN_API_KEY!
+      // optimisticEthereum: process.env.ETHERSCAN_API_KEY!
       // polygon: process.env.POLYGONSCAN_API_KEY!,
-      // arbitrumOne: process.env.ARBISCAN_API_KEY!,
+      arbitrumOne: process.env.ARBISCAN_API_KEY!
       // polygonMumbai: process.env.POLYGONSCAN_API_KEY!,
     },
     customChains: [
