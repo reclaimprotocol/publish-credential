@@ -13,26 +13,26 @@ export default async function handler (
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  res.json([
-    {
-      templateClaimId: 'df3466ef-e0d2-481b-9ac4-689a43190aad',
-      provider: 'google-login',
-      parameters: '{"emailAddress":"haidarjbeily76@gmail.com"}',
-      ownerPublicKey:
-        '02ac423869719e0b5c3c300877e6444a4aeed467308ee0d0c7f7b9beac708a9be4',
-      timestampS: '1699041767',
-      signatures: [
-        '0xa3b71003f8cb459c2ad516fa5517b43d766ae44fa18df486d53035d4910eafef15f7f99a50ab65c3f503265730eae4d194613b43b94c792e63b4be71da35cdc41c'
-      ],
-      redactedParameters: '{"emailAddress":"**************@gmail.com"}',
-      context:
-        '{"contextAddress":"0x0","contextMessage":"0x9c1aa92781dcf4661f8abff2ea9404df23c86a42f6649fca4c2390d95bf77b2d","sessionId":"18387462655382937000000"}',
-      epoch: 2,
-      identifier:
-        '0xb1cdff0306e63559c8a1376a8f0cf7d9b458e48d81d50c1b6c9a7b7e2ea8f481'
-    }
-  ])
-  return
+  // res.json([
+  //   {
+  //     templateClaimId: 'df3466ef-e0d2-481b-9ac4-689a43190aad',
+  //     provider: 'google-login',
+  //     parameters: '{"emailAddress":"haidarjbeily76@gmail.com"}',
+  //     ownerPublicKey:
+  //       '02ac423869719e0b5c3c300877e6444a4aeed467308ee0d0c7f7b9beac708a9be4',
+  //     timestampS: '1699041767',
+  //     signatures: [
+  //       '0xa3b71003f8cb459c2ad516fa5517b43d766ae44fa18df486d53035d4910eafef15f7f99a50ab65c3f503265730eae4d194613b43b94c792e63b4be71da35cdc41c'
+  //     ],
+  //     redactedParameters: '{"emailAddress":"**************@gmail.com"}',
+  //     context:
+  //       '{"contextAddress":"0x0","contextMessage":"0x9c1aa92781dcf4661f8abff2ea9404df23c86a42f6649fca4c2390d95bf77b2d","sessionId":"18387462655382937000000"}',
+  //     epoch: 2,
+  //     identifier:
+  //       '0xb1cdff0306e63559c8a1376a8f0cf7d9b458e48d81d50c1b6c9a7b7e2ea8f481'
+  //   }
+  // ])
+  // return
   try {
     try {
       const { id: callbackId } = req.query
