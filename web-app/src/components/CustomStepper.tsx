@@ -21,9 +21,10 @@ import {
   PublishStep
 } from './Steps'
 import { reclaimNetworksAddresses } from '../reclaimNetworkAddresses'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { providerType } from '../utils/types'
 import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { PolygonModal } from './Polygon/Modal'
 
 const steps = [
   { title: 'First', description: 'Choose Provider' },
@@ -37,12 +38,25 @@ export function CustomStepper () {
     providerType | undefined
   >(undefined)
   const [proof, setProof] = useState<Proof>()
+  const [openModal, setOpenModal] = useState<boolean>(false)
   const [chosenChain, setChosenChain] =
     useState<keyof typeof reclaimNetworksAddresses>('polygon-mumbai')
   const { activeStep, setActiveStep } = useSteps({
     index: 1,
     count: steps.length
   })
+
+  const handleConnectPolygonWalletOpen = useCallback((nextStep: number) => {
+    if (
+      nextStep === 3 &&
+      chosenChain == 'polygon-mumbai' &&
+      localStorage.getItem('userId') == null
+    ) {
+      setOpenModal(true)
+      return false
+    }
+    return true
+  }, [])
 
   return (
     <>
@@ -111,12 +125,15 @@ export function CustomStepper () {
         {activeStep < steps.length && (
           <Button
             onClick={() => {
-              setActiveStep(activeStep + 1)
+              if (handleConnectPolygonWalletOpen(activeStep + 1))
+                setActiveStep(activeStep + 1)
             }}
           >
             Next
           </Button>
         )}
+
+        {openModal && <PolygonModal />}
       </Flex>
     </>
   )
