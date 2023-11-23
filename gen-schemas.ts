@@ -96,8 +96,59 @@ const generateJsonLdFiles = (
   })
 }
 
+
+const generateJsonFiles = (
+  schemas: SchemaObject[],
+  outputDir: string
+): void => {
+  // Ensure the output directory exists
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir, { recursive: true })
+  }
+
+  schemas.forEach(schemaObject => {
+    const parameters = parseSchema(schemaObject.schema)
+
+    schemaObject.providers.forEach(provider => {
+      const jsonContent = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "$metadata": {
+          "uris": {
+            "jsonLdContext": `https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/${provider}.jsonld#${provider}`,
+            "jsonSchema": `https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/${provider}.json`
+          }
+        },
+        "merklizationRootPosition": {
+          "type": "string",
+          "enum": [
+            "none",
+            "index",
+            "value"
+          ]
+        },
+        "revNonce": {
+          "type": "integer"
+        },
+        "version": {
+          "type": "integer"
+        },
+        "updatable": {
+          "type": "boolean"
+        },
+      }
+      const fileName = `${provider}.json`
+      const filePath = path.join(outputDir, fileName)
+      fs.writeFileSync(filePath, JSON.stringify(jsonContent, null, 2))
+      console.log(`Generated ${fileName}`)
+    }
+    )
+  }
+  )
+}
 // Example usage
 const schemas: SchemaObject[] = require('./web-app/src/contracts-artifacts/schema-polygon.json') // Load your schemas from a file
 const outputDirectory = './polygonid-schemas' // Define your output directory
 
-generateJsonLdFiles(schemas, outputDirectory)
+// generateJsonLdFiles(schemas, outputDirectory)
+generateJsonFiles(schemas, outputDirectory)

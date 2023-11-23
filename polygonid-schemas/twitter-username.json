@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "$metadata": {
+    "uris": {
+      "jsonLdContext": "https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/twitter-username.jsonld#twitter-username",
+      "jsonSchema": "https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/twitter-username.json"
+    }
+  },
+  "merklizationRootPosition": {
+    "type": "string",
+    "enum": [
+      "none",
+      "index",
+      "value"
+    ]
+  },
+  "revNonce": {
+    "type": "integer"
+  },
+  "version": {
+    "type": "integer"
+  },
+  "updatable": {
+    "type": "boolean"
+  }
+}
