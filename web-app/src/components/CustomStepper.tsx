@@ -25,7 +25,6 @@ import { useState } from 'react'
 import { providerType } from '../utils/types'
 import { Proof } from '@reclaimprotocol/reclaim-sdk'
 
-
 const steps = [
   { title: 'First', description: 'Choose Provider' },
   { title: 'Second', description: 'Choose Chain' },
@@ -34,14 +33,16 @@ const steps = [
 ]
 
 export function CustomStepper () {
-  const [selectedProvider, setSelectedProvider] = useState<providerType | undefined>(undefined)
+  const [selectedProvider, setSelectedProvider] = useState<
+    providerType | undefined
+  >(undefined)
   const [proof, setProof] = useState<Proof>()
-  const [chosenChain, setChosenChain] = useState<keyof typeof reclaimNetworksAddresses>('polygon-mumbai')
+  const [chosenChain, setChosenChain] =
+    useState<keyof typeof reclaimNetworksAddresses>('polygon-mumbai')
   const { activeStep, setActiveStep } = useSteps({
     index: 1,
     count: steps.length
   })
-  
 
   return (
     <>
@@ -66,10 +67,37 @@ export function CustomStepper () {
         ))}
       </Stepper>
 
-      {activeStep == 1 && <ChooseProviderStep handleSelectChange={(e: any)=> {setSelectedProvider(e)}} />}
-      {activeStep == 2 && <ChooseChainStep setChosenChain={setChosenChain} />}
-      {activeStep == 3 && <ProveClaimStep selectedProvider={selectedProvider} handleSetProof={(proof: Proof) => {setProof(proof)}} />}
-      {activeStep == 4 && <PublishStep proof={proof} chosenChain={chosenChain} provider={selectedProvider} />}
+      {activeStep == 1 && (
+        <ChooseProviderStep
+          handleSelectChange={(e: any) => {
+            setSelectedProvider(e)
+          }}
+        />
+      )}
+      {activeStep == 2 && (
+        <ChooseChainStep
+          provider={
+            //@ts-ignore
+            selectedProvider?.value.providerId || selectedProvider?.value.name
+          }
+          setChosenChain={setChosenChain}
+        />
+      )}
+      {activeStep == 3 && (
+        <ProveClaimStep
+          selectedProvider={selectedProvider}
+          handleSetProof={(proof: Proof) => {
+            setProof(proof)
+          }}
+        />
+      )}
+      {activeStep == 4 && (
+        <PublishStep
+          proof={proof}
+          chosenChain={chosenChain}
+          provider={selectedProvider}
+        />
+      )}
       <Flex gap={4}>
         {activeStep > 1 && (
           <Button

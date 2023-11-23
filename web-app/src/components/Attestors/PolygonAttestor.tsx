@@ -2,7 +2,6 @@ import { Proof } from '@reclaimprotocol/reclaim-sdk'
 import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import {
-  useAccount,
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction
@@ -11,6 +10,8 @@ import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
 import RECLAIM_WITH_IDENTITY from '../../IdentityWithReclaim.json'
 import { Button, Flex, Spinner, Text, useToast, Link } from '@chakra-ui/react'
 import { PolygonModal } from './PolygonModal'
+import encodePolygonIdClaim from '../../utils/encode-polygonid-claim'
+import { getSchemaAndUidPolygon } from '../../utils/get-pid-schemas'
 
 export default function PolygonAttestor ({
   provider,
@@ -26,11 +27,21 @@ export default function PolygonAttestor ({
   const [isPrepared, setIsPrepared] = useState(false)
   const [isClicked, setIsClicked] = useState(false)
 
-
   const [settled, setSettled] = useState(false)
   const toast = useToast()
   useEffect(() => {
     if (proof == undefined) return
+    const { schema } = getSchemaAndUidPolygon(provider)
+    if (!schema) {
+      toast({
+        title: 'Provider not Supported',
+        description: 'Please contact the issuer',
+        status: 'error',
+        duration: 9000,
+        isClosable: true
+      })
+      return
+    }
     const proofReqBef = {
       claimInfo: {
         provider: proof.provider,
@@ -47,11 +58,25 @@ export default function PolygonAttestor ({
         }
       }
     }
+    const utf8EncodeText = new TextEncoder()
+
     setProofReq(proofReqBef)
-    setHashIndex(BigInt(proof.identifier).toString())
-    setHashValue(
-      BigInt(ethers.hashMessage(JSON.stringify(proof.parameters))).toString()
-    )
+
+    const params =
+      proof.extractedParameterValues == undefined
+        ? JSON.parse(proof.parameters as string)
+        : proof.extractedParameterValues
+
+    const setHindexAndValue = async () => {
+      const { hIndex, hValue } = await encodePolygonIdClaim(
+        params,
+        provider,
+        schema as string
+      )
+      setHashIndex(hIndex.toString())
+      setHashValue(hValue.toString())
+    }
+    setHindexAndValue()
   }, [proof])
 
   const contractAddress = '0x169Fe90Cd62ca36500cAea06c50Fb7002A00a074'
@@ -102,22 +127,26 @@ export default function PolygonAttestor ({
 
   return (
     <>
-
-
-      {(!isPrepared) && <>
-        <Text>Preparing(Publish with Polygon Identity)<Spinner /></Text>
-      </>}
-      {isPrepared && !isError && <Button
-
-      disabled={isClicked}
-        colorScheme='blue'
-        onClick={() => {
-          write?.()
-          setIsClicked(true)
-        }}
-      >
-        Publish with Polygon Identity {isLoading && <Spinner />}
-      </Button>}
+      {!isPrepared && (
+        <>
+          <Text>
+            Preparing(Publish with Polygon Identity)
+            <Spinner />
+          </Text>
+        </>
+      )}
+      {isPrepared && !isError && (
+        <Button
+          disabled={isClicked}
+          colorScheme='blue'
+          onClick={() => {
+            write?.()
+            setIsClicked(true)
+          }}
+        >
+          Publish with Polygon Identity {isLoading && <Spinner />}
+        </Button>
+      )}
 
       {settled && (
         <Flex gap={'10px'} flexDirection={'column'}>

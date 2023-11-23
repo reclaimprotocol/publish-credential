@@ -3,21 +3,21 @@ import { Select, useToast } from '@chakra-ui/react'
 import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
 import { ChangeEvent, useEffect } from 'react'
 import { useNetwork, useSwitchNetwork } from 'wagmi'
+import { getSchemaAndUidPolygon } from '../../utils/get-pid-schemas'
 
 type SupportedNetworkDropDownProps = {
   setChosenChain: React.Dispatch<
-    React.SetStateAction<
-      keyof typeof reclaimNetworksAddresses
-    >
+    React.SetStateAction<keyof typeof reclaimNetworksAddresses>
   >
+  provider: string
 }
 
 export const ChooseChainStep = ({
-  setChosenChain
+  setChosenChain,
+  provider
 }: SupportedNetworkDropDownProps) => {
   const { chain } = useNetwork()
-  const { chains, error, isLoading, pendingChainId, switchNetwork } =
-    useSwitchNetwork()
+  const { error, switchNetwork } = useSwitchNetwork()
 
   const toast = useToast()
 
@@ -41,8 +41,8 @@ export const ChooseChainStep = ({
     const networkDetails = reclaimNetworksAddresses[event.target.value]
     if (networkDetails['chainId'] !== chain?.id) {
       try {
-        if(networkDetails['chainId'] !== -1)
-        switchNetwork(networkDetails['chainId'])
+        if (networkDetails['chainId'] !== -1)
+          switchNetwork(networkDetails['chainId'])
       } catch (error) {
         toast({
           title: 'Please try again!',
@@ -52,6 +52,18 @@ export const ChooseChainStep = ({
           isClosable: true,
           position: 'top-right'
         })
+      }
+
+      const { schema } = getSchemaAndUidPolygon(provider)
+      if (!schema && event.target.value === 'polygon-mumbai') {
+        toast({
+          title: 'Provider not Supported',
+          description: 'Please contact the issuer',
+          status: 'error',
+          duration: 9000,
+          isClosable: true
+        })
+        return
       }
     }
   }
