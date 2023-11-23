@@ -4,6 +4,7 @@ import { Button, Flex, Spinner, Text, useToast, Link } from '@chakra-ui/react'
 import { PolygonModal } from './PolygonModal'
 import createPolygonIdClaim from '../../utils/create-polygonid-claim'
 import { getSchemaAndUidPolygon } from '../../utils/get-pid-schemas'
+import Offer from '../Polygon/Offer'
 
 export default function PolygonAttestor ({
   provider,
@@ -14,6 +15,10 @@ export default function PolygonAttestor ({
 }) {
   const [isClicked, setIsClicked] = useState(false)
   const [claim, setClaim] = useState({})
+  const [claimId, setClaimId] = useState('')
+  const [issuer, setIssuer] = useState('')
+  const [subject, setSubject] = useState('')
+
   const [isLoading, setIsLoading] = useState(false)
   const [settled, setSettled] = useState(false)
   const toast = useToast()
@@ -64,6 +69,19 @@ export default function PolygonAttestor ({
       )
       const credential = await credentialResponse.json()
 
+      setClaimId(data.id)
+      setIssuer(credential.issuer)
+      setSubject(credential.credentialSubject.id)
+
+      toast({
+        title: 'Success',
+        description: 'Credential published',
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'top-right'
+      })
+      setSettled(true)
       console.log('credential', credential)
     } catch (e) {
       console.log(e)
@@ -81,22 +99,23 @@ export default function PolygonAttestor ({
 
   return (
     <>
-      <Button
-        disabled={isClicked}
-        colorScheme='blue'
-        onClick={async () => {
-          await publishCred()
-          setIsClicked(true)
-        }}
-      >
-        Publish with Polygon Identity {isLoading && <Spinner />}
-      </Button>
+      {!settled && (
+        <Button
+          disabled={isClicked}
+          colorScheme='blue'
+          onClick={async () => {
+            setIsClicked(true)
+            await publishCred()
+            setIsClicked(false)
+          }}
+        >
+          Publish with Polygon Identity {isLoading && <Spinner />}
+        </Button>
+      )}
 
       {settled && (
         <Flex gap={'10px'} flexDirection={'column'}>
-          <Link color={'blue.400'} isExternal>
-            Go to transaction
-          </Link>
+          <Offer subject={subject} claimId={claimId} issuer={issuer} />
         </Flex>
       )}
     </>
