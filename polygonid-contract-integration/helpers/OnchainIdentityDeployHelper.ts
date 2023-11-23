@@ -6,7 +6,7 @@ export class OnchainIdentityDeployHelper {
   constructor(
     private signers: SignerWithAddress[],
     private readonly enableLogging: boolean = false
-  ) {}
+  ) { }
 
   static async initialize(
     signers: SignerWithAddress[] | null = null,
@@ -22,7 +22,6 @@ export class OnchainIdentityDeployHelper {
   }
 
   async deployIdentity(
-    reclaim: string,
     state: Contract,
     smtLib: Contract,
     poseidon1: Contract,
@@ -47,7 +46,7 @@ export class OnchainIdentityDeployHelper {
       },
     });
     // const IdentityFactory = await ethers.getContractFactory("Identity");
-    const Identity = await upgrades.deployProxy(IdentityFactory, [state.address, reclaim], {
+    const Identity = await upgrades.deployProxy(IdentityFactory, [state.address], {
       unsafeAllowLinkedLibraries: true,
     });
     await Identity.deployed();
@@ -70,11 +69,13 @@ export class OnchainIdentityDeployHelper {
   }
 
   async deployIdentityLib(smtpAddress: string, poseidonUtil3lAddress: string, poseidonUtil4lAddress: string): Promise<Contract> {
-    const Identity = await ethers.getContractFactory("IdentityLib", { libraries: {
-      SmtLib: smtpAddress,
-      PoseidonUnit3L: poseidonUtil3lAddress,
-      PoseidonUnit4L: poseidonUtil4lAddress,
-    }});
+    const Identity = await ethers.getContractFactory("IdentityLib", {
+      libraries: {
+        SmtLib: smtpAddress,
+        PoseidonUnit3L: poseidonUtil3lAddress,
+        PoseidonUnit4L: poseidonUtil4lAddress,
+      }
+    });
     const il = await Identity.deploy();
     await il.deployed();
     this.enableLogging && this.log(`ClaimBuilder deployed to: ${il.address}`);

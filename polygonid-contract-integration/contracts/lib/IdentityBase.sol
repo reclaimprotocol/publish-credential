@@ -5,7 +5,6 @@ import {IOnchainCredentialStatusResolver} from "../interfaces/IOnchainCredential
 import {IState} from "../interfaces/IState.sol";
 import {IdentityLib} from "../lib/IdentityLib.sol";
 import {SmtLib} from "../lib/SmtLib.sol";
-import {IReclaim} from "../interfaces/IReclaim.sol";
 
 // /**
 //  * @dev Contract managing onchain identity
@@ -20,7 +19,6 @@ abstract contract IdentityBase is IOnchainCredentialStatusResolver {
     using IdentityLib for IdentityLib.Data;
 
     IdentityLib.Data internal identity;
-    IReclaim internal Reclaim;
     // This empty reserved space is put in place to allow future versions
     // of this contract to add new variables without shifting down
     // storage of child contracts that use this contract as a base
@@ -39,9 +37,8 @@ abstract contract IdentityBase is IOnchainCredentialStatusResolver {
      * @dev Initialization of IdentityLib library
      * @param _stateContractAddr - address of the State contract
      */
-    function initialize(address _stateContractAddr, address _reclaimContractAddr) public virtual {
+    function initialize(address _stateContractAddr) public virtual {
         identity.initialize(_stateContractAddr, address(this), getSmtDepth());
-        Reclaim = IReclaim(_reclaimContractAddr);
     }
 
     /**
@@ -146,7 +143,9 @@ abstract contract IdentityBase is IOnchainCredentialStatusResolver {
      * @param state identity state
      * @return set of roots
      */
-    function getRootsByState(uint256 state) public view virtual returns (IdentityLib.Roots memory) {
+    function getRootsByState(
+        uint256 state
+    ) public view virtual returns (IdentityLib.Roots memory) {
         return identity.getRootsByState(state);
     }
 
@@ -225,7 +224,9 @@ abstract contract IdentityBase is IOnchainCredentialStatusResolver {
         uint64 nonce
     ) public view returns (CredentialStatus memory) {
         require(id == identity.id, "Identity id mismatch");
-        IdentityLib.Roots memory historicalStates = identity.getRootsByState(state);
+        IdentityLib.Roots memory historicalStates = identity.getRootsByState(
+            state
+        );
         IdentityStateRoots memory issuerStates = IdentityStateRoots({
             state: state,
             rootOfRoots: historicalStates.rootsRoot,
