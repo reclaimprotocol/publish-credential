@@ -1,0 +1,9 @@
+.vscode
+.env
+
+resolvers.settings.yaml
+onchain-issuer.settings.yaml
+
+./onchain
+.mongodata
+
