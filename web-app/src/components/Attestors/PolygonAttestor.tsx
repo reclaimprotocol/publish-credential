@@ -48,55 +48,80 @@ export default function PolygonAttestor ({
     setClaim(claimR)
   }, [proof])
 
-  const publishCred = useCallback(async () => {
-    try {
-      setIsLoading(true)
-      console.log(claim)
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(claim)
+  const publishCred = useCallback(
+    async (proof: Proof | undefined) => {
+      try {
+        setIsLoading(true)
+        const { schema } = getSchemaAndUidPolygon(provider)
+
+        if (!schema || !proof) {
+          toast({
+            title: 'Provider not Supported',
+            description: 'Please contact the issuer',
+            status: 'error',
+            duration: 9000,
+            isClosable: true
+          })
+          return
         }
-      )
 
-      const data = await response.json()
+        const params =
+          proof.extractedParameterValues == undefined
+            ? JSON.parse(proof.parameters as string)
+            : proof.extractedParameterValues
 
-      const credentialResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims/${data.id}`
-      )
-      const credential = await credentialResponse.json()
+        const claimR = createPolygonIdClaim(params, provider, schema as string)
+        console.log(claimR)
+        setClaim(claimR)
 
-      setClaimId(data.id)
-      setIssuer(credential.issuer)
-      setSubject(credential.credentialSubject.id)
+        console.log(claim)
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(claimR)
+          }
+        )
 
-      toast({
-        title: 'Success',
-        description: 'Credential published',
-        status: 'success',
-        duration: 9000,
-        isClosable: true,
-        position: 'top-right'
-      })
-      setSettled(true)
-      console.log('credential', credential)
-    } catch (e) {
-      console.log(e)
-      toast({
-        title: 'Error',
-        description: 'Something went wrong',
-        status: 'error',
-        duration: 9000,
-        isClosable: true
-      })
-    } finally {
-      setIsLoading(false)
-    }
-  }, [proof])
+        const data = await response.json()
+
+        const credentialResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims/${data.id}`
+        )
+        const credential = await credentialResponse.json()
+
+        setClaimId(data.id)
+        setIssuer(credential.issuer)
+        setSubject(credential.credentialSubject.id)
+
+        toast({
+          title: 'Success',
+          description: 'Credential published',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+          position: 'top-right'
+        })
+        setSettled(true)
+        console.log('credential', credential)
+      } catch (e) {
+        console.log(e)
+        toast({
+          title: 'Error',
+          description: 'Something went wrong',
+          status: 'error',
+          duration: 9000,
+          isClosable: true
+        })
+      } finally {
+        setIsLoading(false)
+      }
+    },
+    [proof]
+  )
 
   return (
     <>
@@ -106,7 +131,7 @@ export default function PolygonAttestor ({
           colorScheme='blue'
           onClick={async () => {
             setIsClicked(true)
-            await publishCred()
+            await publishCred(proof)
             setIsClicked(false)
           }}
         >
