@@ -79,9 +79,9 @@ export default function PolygonAttestor ({
           `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims`,
           {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            // headers: {
+            //   'Content-Type': 'application/json'
+            // },
             body: JSON.stringify(claimR)
           }
         )
