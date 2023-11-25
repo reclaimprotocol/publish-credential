@@ -9,7 +9,7 @@ async function main() {
   const deployHelper = await OnchainIdentityDeployHelper.initialize();
   const stContracts = await stDeployHelper.deployState();
   const contracts = await deployHelper.deployIdentity(
-    stContracts.state,
+    '0x134B1BE34911E39A8397ec6289782989729807a4',
     stContracts.smtLib,
     stContracts.poseidon1,
     stContracts.poseidon2,
@@ -20,7 +20,7 @@ async function main() {
 
 
   const outputJson = {
-    state: stContracts.state.address,
+    state: '0x134B1BE34911E39A8397ec6289782989729807a4',
     smtLib: stContracts.smtLib.address,
     identity: identity.address,
     poseidon1: stContracts.poseidon1.address,

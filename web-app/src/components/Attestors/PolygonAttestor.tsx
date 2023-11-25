@@ -51,6 +51,7 @@ export default function PolygonAttestor ({
   const publishCred = useCallback(async () => {
     try {
       setIsLoading(true)
+      console.log(claim)
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims`,
         {

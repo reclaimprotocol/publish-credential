@@ -22,7 +22,7 @@ export class OnchainIdentityDeployHelper {
   }
 
   async deployIdentity(
-    state: Contract,
+    state: string,
     smtLib: Contract,
     poseidon1: Contract,
     poseidon2: Contract,
@@ -46,7 +46,7 @@ export class OnchainIdentityDeployHelper {
       },
     });
     // const IdentityFactory = await ethers.getContractFactory("Identity");
-    const Identity = await upgrades.deployProxy(IdentityFactory, [state.address], {
+    const Identity = await upgrades.deployProxy(IdentityFactory, [state], {
       unsafeAllowLinkedLibraries: true,
     });
     await Identity.deployed();

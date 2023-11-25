@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
 
 	core "github.com/iden3/go-iden3-core"
 	"github.com/kelseyhightower/envconfig"
@@ -42,7 +41,7 @@ type Config struct {
 }
 
 func (c *Config) GetIssuerIdentityDIDFromAddress() error {
-	genesis := genFromHex("00000000000000" + strings.Trim(c.OnchainIssuerContractAddress, "0x"))
+	genesis := genFromHex("00000000000000" + c.OnchainIssuerContractAddress[2:])
 	tp, err := core.BuildDIDType(
 		core.DIDMethodPolygonID,
 		core.Blockchain(c.OnchainIssuerContractBlockchain),
@@ -93,6 +92,7 @@ func ParseConfig() (Config, error) {
 }
 
 func genFromHex(gh string) [27]byte {
+	fmt.Println(gh)
 	genBytes, err := hex.DecodeString(gh)
 	if err != nil {
 		panic(err)
