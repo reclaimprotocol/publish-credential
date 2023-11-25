@@ -39,9 +39,12 @@ ONCHAIN_ISSUER_CONTRACT_NETWORK=<BLOCKCHAIN_OF_WITH_ISSUER_CONTRACT>
    - For mainnet network: `0x624ce98D2d27b20b8f8d521723Df8fC4db71D79D`
 3. Fill in the configuration files with the actual values.
 4. Run the run.sh script:
+
    ```bash
    ./run.sh
+
    ```
+
 5. Open http://localhost:3000 in your web browser.
 
 ## How to verify the balance claim:
