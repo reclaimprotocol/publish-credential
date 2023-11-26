@@ -14,9 +14,17 @@ const Offer = ({ issuer, subject, claimId }: OfferProps) => {
   useEffect(() => {
     const getOffer = async () => {
       try {
-        const offerResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${issuer}/claims/offer?subject=${subject}&claimId=${claimId}`
-        )
+        const offerResponse = await fetch('/api/proxy', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            method: 'GET',
+            url: `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${issuer}/claims/offer?subject=${subject}&claimId=${claimId}`,
+            data: ''
+          })
+        })
         setCredentialOffer(JSON.stringify(await offerResponse.json()))
       } catch (e) {
         console.log('failed get offer message ->', e)

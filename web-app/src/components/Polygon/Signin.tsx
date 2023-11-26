@@ -12,9 +12,17 @@ const SigninPolygon = () => {
 
     let interval: NodeJS.Timer
     const auth = async () => {
-      const authRequest = await fetch(
-        `${NEXT_PUBLIC_AUTH_PID_SERVER_URL}/api/v1/requests/auth`
-      )
+      const authRequest = await fetch('/api/proxy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          method: 'GET',
+          url: `${NEXT_PUBLIC_AUTH_PID_SERVER_URL}/api/v1/requests/auth`,
+          data: ''
+        })
+      })
       const returnData = JSON.stringify(await authRequest.json())
       setQRData(returnData)
       console.log(returnData)
@@ -22,9 +30,17 @@ const SigninPolygon = () => {
 
       interval = setInterval(async () => {
         try {
-          const sessionResponse = await fetch(
-            `${NEXT_PUBLIC_AUTH_PID_SERVER_URL}/api/v1/status?id=${sessionID}`
-          )
+          const sessionResponse = await fetch('/api/proxy', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              method: 'GET',
+              url: `${NEXT_PUBLIC_AUTH_PID_SERVER_URL}/api/v1/status?id=${sessionID}`,
+              data: ''
+            })
+          })
           if (sessionResponse.ok) {
             const data = await sessionResponse.json()
             clearInterval(interval)

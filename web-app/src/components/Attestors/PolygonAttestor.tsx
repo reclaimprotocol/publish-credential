@@ -75,38 +75,59 @@ export default function PolygonAttestor ({
         setClaim(claimR)
 
         console.log(claim)
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims`,
-          {
+
+        const response = await fetch('/api/proxy', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
             method: 'POST',
-            // headers: {
-            //   'Content-Type': 'application/json'
-            // },
-            body: JSON.stringify(claimR)
-          }
-        )
-
-        const data = await response.json()
-
-        const credentialResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims/${data.id}`
-        )
-        const credential = await credentialResponse.json()
-
-        setClaimId(data.id)
-        setIssuer(credential.issuer)
-        setSubject(credential.credentialSubject.id)
-
-        toast({
-          title: 'Success',
-          description: 'Credential published',
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-          position: 'top-right'
+            url: `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims`,
+            data: JSON.stringify(claimR)
+          })
         })
-        setSettled(true)
-        console.log('credential', credential)
+        if (response.ok) {
+          const data = await response.json()
+
+          const credentialResponse = await fetch('/api/proxy', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              method: 'GET',
+              url: `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims/${data.id}`,
+              data: ''
+            })
+          })
+
+          const credential = await credentialResponse.json()
+
+          setClaimId(data.id)
+          setIssuer(credential.issuer)
+          setSubject(credential.credentialSubject.id)
+
+          toast({
+            title: 'Success',
+            description: 'Credential published',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+            position: 'top-right'
+          })
+          setSettled(true)
+          console.log('credential', credential)
+        } else {
+          toast({
+            title: 'Error',
+            description: (await response.json()).error,
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+            position: 'top-right'
+          })
+        }
       } catch (e) {
         console.log(e)
         toast({
