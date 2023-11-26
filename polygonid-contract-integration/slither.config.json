@@ -5,5 +5,5 @@
   "exclude_high": false,
   "disable_color": false,
   "filter_paths": "(node_modules/|contracts/state/State_migraton.sol)",
-  "legacy_ast": false
+  "legacy_ast": true
 }
