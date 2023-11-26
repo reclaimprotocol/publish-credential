@@ -45,8 +45,6 @@ ONCHAIN_ISSUER_CONTRACT_NETWORK=<BLOCKCHAIN_OF_WITH_ISSUER_CONTRACT>
 
    ```
 
-5. Open http://localhost:3000 in your web browser.
-
 ## How to verify the balance claim:
 
 1. Go to https://verifier-v2.polygonid.me/
