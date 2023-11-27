@@ -25,7 +25,6 @@ export default async function handler(
         })
     }
 
-
     if (response.ok) {
         const returned = await response.json()
         console.log(returned)
