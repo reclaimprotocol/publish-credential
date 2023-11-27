@@ -25,7 +25,9 @@ const Offer = ({ issuer, subject, claimId }: OfferProps) => {
             data: ''
           })
         })
-        setCredentialOffer(JSON.stringify(await offerResponse.json()))
+        const data = await offerResponse.json()
+        data['body']['credentials'][0]['description'] = 'Reclaim Credential'
+        setCredentialOffer(JSON.stringify(data))
       } catch (e) {
         console.log('failed get offer message ->', e)
       }
