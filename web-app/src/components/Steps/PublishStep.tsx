@@ -72,6 +72,7 @@ export function PublishStep ({
         {chosenChain.includes('olygon') && (
           <PolygonAttestor
             proof={proof}
+            chain={chosenChain}
             provider={provider?.value.providerId}
           />
         )}

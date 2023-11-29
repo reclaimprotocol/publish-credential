@@ -5,13 +5,16 @@ import { PolygonModal } from './PolygonModal'
 import createPolygonIdClaim from '../../utils/create-polygonid-claim'
 import { getSchemaAndUidPolygon } from '../../utils/get-pid-schemas'
 import Offer from '../Polygon/Offer'
+import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
 
 export default function PolygonAttestor ({
   provider,
-  proof
+  proof,
+  chain
 }: {
   provider: string
   proof: Proof | undefined
+  chain: string
 }) {
   const [isClicked, setIsClicked] = useState(false)
   const [claim, setClaim] = useState({})
@@ -83,7 +86,12 @@ export default function PolygonAttestor ({
           },
           body: JSON.stringify({
             method: 'POST',
-            url: `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims`,
+            url: `${
+              process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
+            }/api/v1/identities/${
+              //@ts-ignore
+              reclaimNetworksAddresses[chain]
+            }/claims`,
             data: JSON.stringify(claimR)
           })
         })
@@ -97,7 +105,12 @@ export default function PolygonAttestor ({
             },
             body: JSON.stringify({
               method: 'GET',
-              url: `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${process.env.NEXT_PUBLIC_DID}/claims/${data.id}`,
+              url: `${
+                process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
+              }/api/v1/identities/${
+                //@ts-ignore
+                reclaimNetworksAddresses[chain]
+              }/claims/${data.id}`,
               data: ''
             })
           })

@@ -50,11 +50,20 @@ export function CustomStepper () {
     if (
       nextStep === 3 &&
       chosenChain == 'polygon-mumbai' &&
-      localStorage.getItem('userId') == null
+      localStorage.getItem('userIdMumbai') == null
     ) {
       setOpenModal(true)
       return false
     }
+    if (
+      nextStep === 3 &&
+      chosenChain == 'polygon-mainnet' &&
+      localStorage.getItem('userIdMain') == null
+    ) {
+      setOpenModal(true)
+      return false
+    }
+
     return true
   }, [])
 

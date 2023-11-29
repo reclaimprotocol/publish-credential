@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
 import Code from './QrCode'
 import { Grid, Text, useToast } from '@chakra-ui/react'
+import { useNetwork } from 'wagmi'
 
 const SigninPolygon = () => {
+  const { chain } = useNetwork()
   const toast = useToast()
 
   const [QRData, setQRData] = useState('')
@@ -44,7 +46,33 @@ const SigninPolygon = () => {
           if (sessionResponse.ok) {
             const data = await sessionResponse.json()
             clearInterval(interval)
-            localStorage.setItem('userId', data.id)
+            if (data.id.includes('mumbai')) {
+              if (chain?.id === 80001) {
+                localStorage.setItem('userIdMumbai', data.id)
+              } else {
+                toast({
+                  title: 'Error',
+                  description: 'Please switch to Polygon Mumbai on Mobile App',
+                  status: 'error',
+                  duration: 9000,
+                  position: 'top-right',
+                  isClosable: true
+                })
+              }
+            } else {
+              if (chain?.id === 137) {
+                localStorage.setItem('userIdMain', data.id)
+              } else {
+                toast({
+                  title: 'Error',
+                  description: 'Please switch to Polygon Mainnet on Mobile App',
+                  status: 'error',
+                  duration: 9000,
+                  position: 'top-right',
+                  isClosable: true
+                })
+              }
+            }
             toast({
               title: 'Success! you can continue!',
               description: 'Your ID' + data.id,

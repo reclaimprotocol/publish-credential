@@ -1,5 +1,6 @@
 export const reclaimNetworksAddresses = {
   'polygon-mumbai': {
+    did: 'did:polygonid:polygon:mumbai:2qCU58EJgrELSe4TTidxb7RbkWEES73pHmizWPdK3k',
     address: '0xd6534f52CEB3d0139b915bc0C3278a94687fA5C7',
     name: 'Polygon mumbai',
     chainId: 80001
@@ -14,11 +15,12 @@ export const reclaimNetworksAddresses = {
     name: 'Optimism testnet',
     chainId: 420
   },
-  // 'polygon-mainnet': {
-  //   address: '0xd6534f52CEB3d0139b915bc0C3278a94687fA5C7',
-  //   name: 'Polygon mainnet',
-  //   chainId: 137
-  // },
+  'polygon-mainnet': {
+    did: 'did:polygonid:polygon:main:2pzr1wiBm3QhxusGpeYKvhHEpP8XDHRD8D8hURQBEv',
+    address: '0xd6534f52CEB3d0139b915bc0C3278a94687fA5C7',
+    name: 'Polygon mainnet',
+    chainId: 137
+  },
   'arbitrum-one': {
     address: '0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1',
     name: 'Arbitrum',
