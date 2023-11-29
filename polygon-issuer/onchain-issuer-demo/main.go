@@ -91,7 +91,7 @@ func main() {
 		}()
 	}
 
-	http.ListenAndServe(":3333", r)
+	http.ListenAndServe(":80", r)
 }
 
 func runNgrok(r chi.Router) error {

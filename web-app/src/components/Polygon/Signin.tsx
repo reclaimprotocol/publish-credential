@@ -12,6 +12,11 @@ const SigninPolygon = () => {
     const NEXT_PUBLIC_AUTH_PID_SERVER_URL =
       process.env.NEXT_PUBLIC_AUTH_PID_SERVER_URL
 
+    const authHost =
+      chain?.id === 137
+        ? 'http://3.89.212.207'
+        : NEXT_PUBLIC_AUTH_PID_SERVER_URL
+
     let interval: NodeJS.Timer
     const auth = async () => {
       const authRequest = await fetch('/api/proxy', {
@@ -21,7 +26,7 @@ const SigninPolygon = () => {
         },
         body: JSON.stringify({
           method: 'GET',
-          url: `${NEXT_PUBLIC_AUTH_PID_SERVER_URL}/api/v1/requests/auth`,
+          url: `${authHost}/api/v1/requests/auth`,
           data: ''
         })
       })
@@ -39,7 +44,7 @@ const SigninPolygon = () => {
             },
             body: JSON.stringify({
               method: 'GET',
-              url: `${NEXT_PUBLIC_AUTH_PID_SERVER_URL}/api/v1/status?id=${sessionID}`,
+              url: `${authHost}/api/v1/status?id=${sessionID}`,
               data: ''
             })
           })

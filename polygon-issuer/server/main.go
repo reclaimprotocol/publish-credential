@@ -41,7 +41,7 @@ func main() {
 	} else {
 		handlers.NgrokCallbackURL = cfg.HostUrl
 	}
-	fmt.Println(http.ListenAndServe(":6543", r))
+	fmt.Println(http.ListenAndServe(":80", r))
 }
 
 func runNgrok(r chi.Router) error {

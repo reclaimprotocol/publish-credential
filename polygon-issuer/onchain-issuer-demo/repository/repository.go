@@ -143,5 +143,8 @@ func (cs *CredentialRepository) GetVCByID(
 
 func extractCredentialID(vc verifiable.W3CCredential) string {
 	parts := strings.Split(vc.ID, "/")
-	return parts[len(parts)-1]
+	lastPart := parts[len(parts)-1]
+	diff := strings.Split(lastPart, "?")
+	secDiff := strings.Split(diff[1], "=")
+	return secDiff[len(secDiff)-1]
 }
