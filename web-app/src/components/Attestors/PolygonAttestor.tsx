@@ -90,7 +90,7 @@ export default function PolygonAttestor ({
               process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
             }/api/v1/identities/${
               //@ts-ignore
-              reclaimNetworksAddresses[chain]
+              reclaimNetworksAddresses[chain].did
             }/claims`,
             data: JSON.stringify(claimR)
           })
@@ -109,7 +109,7 @@ export default function PolygonAttestor ({
                 process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
               }/api/v1/identities/${
                 //@ts-ignore
-                reclaimNetworksAddresses[chain]
+                reclaimNetworksAddresses[chain].did
               }/claims/${data.id}`,
               data: ''
             })
