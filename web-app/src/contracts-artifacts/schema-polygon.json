@@ -271,5 +271,13 @@
     "providers": [
       "zomato-order-count"
     ]
+  },
+  {
+    "schema": "string dob",
+    "isRegistered": true,
+    "uid": "0x20c91a000f6bc7874c94c27703b50966dec0a65073028a02a75de5f2b6a71621",
+    "providers": [
+      "uidai-dob"
+    ]
   }
 ]
