@@ -1,7 +1,7 @@
 'use client'
 import { Select, useToast } from '@chakra-ui/react'
 import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
-import { ChangeEvent, useEffect } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { useNetwork, useSwitchNetwork } from 'wagmi'
 import { getSchemaAndUidPolygon } from '../../utils/get-pid-schemas'
 
@@ -18,8 +18,27 @@ export const ChooseChainStep = ({
 }: SupportedNetworkDropDownProps) => {
   const { chain } = useNetwork()
   const { error, switchNetwork } = useSwitchNetwork()
-
+  const [currentChain, setCurrentChain] =
+    useState<keyof typeof reclaimNetworksAddresses>('polygon-mumbai')
   const toast = useToast()
+  // console.log('chai11n', reclaimNetworksAddresses)
+  useEffect(() => {
+    let chainName = 'polygon-mumbai'
+    Object.entries(reclaimNetworksAddresses).forEach(([key, value], _) => {
+      // console.log('key', key)
+      // console.log('value', value)
+      // console.log('chain', chain?.id)
+      // console.log('chainId', value['chainId'])
+      if ((value['chainId'] as any) === chain?.id) {
+        chainName = key
+      }
+    })
+    // console.log('chain', chainName)
+    //@ts-ignore
+    setCurrentChain(chainName)
+    //@ts-ignore
+    setChosenChain(chainName)
+  }, [chain])
 
   useEffect(() => {
     if (error != null && error.message !== undefined) {
@@ -55,7 +74,11 @@ export const ChooseChainStep = ({
       }
 
       const { schema } = getSchemaAndUidPolygon(provider)
-      if (!schema && event.target.value === 'polygon-mumbai') {
+      if (
+        !schema &&
+        (event.target.value === 'polygon-mumbai' ||
+          event.target.value === 'polygon-mainnet')
+      ) {
         toast({
           title: 'Provider not Supported',
           description: 'Please contact the issuer',
@@ -70,7 +93,12 @@ export const ChooseChainStep = ({
 
   return (
     <>
-      <Select width='60%' onChange={handleChange} defaultValue='polygon-mumbai'>
+      <Select
+        width='60%'
+        onChange={handleChange}
+        defaultValue={currentChain}
+        value={currentChain}
+      >
         {Object.entries(reclaimNetworksAddresses).map((v, index, _) => {
           return (
             <option value={v[0]} key={v[0]}>

@@ -46,26 +46,29 @@ export function CustomStepper () {
     count: steps.length
   })
 
-  const handleConnectPolygonWalletOpen = useCallback((nextStep: number) => {
-    if (
-      nextStep === 3 &&
-      chosenChain == 'polygon-mumbai' &&
-      localStorage.getItem('userIdMumbai') == null
-    ) {
-      setOpenModal(true)
-      return false
-    }
-    if (
-      nextStep === 3 &&
-      chosenChain == 'polygon-mainnet' &&
-      localStorage.getItem('userIdMain') == null
-    ) {
-      setOpenModal(true)
-      return false
-    }
+  const handleConnectPolygonWalletOpen = useCallback(
+    (nextStep: number) => {
+      if (
+        nextStep === 3 &&
+        chosenChain == 'polygon-mumbai' &&
+        localStorage.getItem('userIdMumbai') == null
+      ) {
+        setOpenModal(true)
+        return false
+      }
+      if (
+        nextStep === 3 &&
+        chosenChain == 'polygon-mainnet' &&
+        localStorage.getItem('userIdMain') == null
+      ) {
+        setOpenModal(true)
+        return false
+      }
 
-    return true
-  }, [])
+      return true
+    },
+    [chosenChain]
+  )
 
   return (
     <>
