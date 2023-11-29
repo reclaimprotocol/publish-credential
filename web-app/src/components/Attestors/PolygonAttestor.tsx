@@ -46,7 +46,12 @@ export default function PolygonAttestor ({
         ? JSON.parse(proof.parameters as string)
         : proof.extractedParameterValues
 
-    const claimR = createPolygonIdClaim(params, provider, schema as string)
+    const claimR = createPolygonIdClaim(
+      params,
+      provider,
+      schema as string,
+      chain
+    )
     console.log(claimR)
     setClaim(claimR)
   }, [proof])
@@ -73,7 +78,12 @@ export default function PolygonAttestor ({
             ? JSON.parse(proof.parameters as string)
             : proof.extractedParameterValues
 
-        const claimR = createPolygonIdClaim(params, provider, schema as string)
+        const claimR = createPolygonIdClaim(
+          params,
+          provider,
+          schema as string,
+          chain
+        )
         console.log(claimR)
         setClaim(claimR)
 

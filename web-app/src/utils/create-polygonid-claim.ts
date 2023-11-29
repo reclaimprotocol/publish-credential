@@ -11,12 +11,13 @@ export default function createPolygonIdClaim(
         [key: string]: string
     },
     provider: string,
-    schema: string
+    schema: string,
+    chain: string
 ) {
     const schemaId = `https://raw.githubusercontent.com/reclaimprotocol/publish-credential/main/polygonid-schemas/${provider}.json`
     const schemaItemsRaw = schema.split(',')
     const slots: any = {
-        'id': localStorage.getItem('userId')
+        'id': chain === 'polygon-mumbai' ? localStorage.getItem('userIdMumbai') : localStorage.getItem('userIdMain'),
     }
     for (let item of schemaItemsRaw) {
         const fItem = item.split(' ')
