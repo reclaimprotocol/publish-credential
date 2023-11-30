@@ -1,6 +1,7 @@
 import { use, useState, useEffect } from 'react'
 import QRCode from './QrCode'
 import { Grid, Text } from '@chakra-ui/react'
+import { useNetwork } from 'wagmi'
 
 type OfferProps = {
   issuer: string
@@ -10,6 +11,7 @@ type OfferProps = {
 
 const Offer = ({ issuer, subject, claimId }: OfferProps) => {
   const [credentialOffer, setCredentialOffer] = useState('')
+  const { chain } = useNetwork()
 
   useEffect(() => {
     const getOffer = async () => {
@@ -21,7 +23,11 @@ const Offer = ({ issuer, subject, claimId }: OfferProps) => {
           },
           body: JSON.stringify({
             method: 'GET',
-            url: `${process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL}/api/v1/identities/${issuer}/claims/offer?subject=${subject}&claimId=${claimId}`,
+            url: `${
+              chain?.id === 80001
+                ? process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
+                : 'http://3.89.212.207:3333'
+            }/api/v1/identities/${issuer}/claims/offer?subject=${subject}&claimId=${claimId}`,
             data: ''
           })
         })

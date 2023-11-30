@@ -97,7 +97,9 @@ export default function PolygonAttestor ({
           body: JSON.stringify({
             method: 'POST',
             url: `${
-              process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
+              chain === 'polygon-mumbai'
+                ? process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
+                : 'http://3.89.212.207:3333'
             }/api/v1/identities/${
               //@ts-ignore
               reclaimNetworksAddresses[chain].did
@@ -116,7 +118,9 @@ export default function PolygonAttestor ({
             body: JSON.stringify({
               method: 'GET',
               url: `${
-                process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
+                chain === 'polygon-mumbai'
+                  ? process.env.NEXT_PUBLIC_ISSUER_PID_SERVER_URL
+                  : 'http://3.89.212.207:3333'
               }/api/v1/identities/${
                 //@ts-ignore
                 reclaimNetworksAddresses[chain].did
