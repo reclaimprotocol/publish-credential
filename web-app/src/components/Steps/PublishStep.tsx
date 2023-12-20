@@ -9,8 +9,9 @@ import ArbitrumAttestor from '../Attestors/ArbitrumAttestor'
 import OptimismAttestor from '../Attestors/OptimismAttestor'
 import VeraxAttestor from '../Attestors/VeraxAttestor'
 import PolygonAttestor from '../Attestors/PolygonAttestor'
+import ArbVeraxAttestor from '../Attestors/ArbVeraxAttestor'
 
-export function PublishStep ({
+export function PublishStep({
   proof,
   chosenChain,
   provider
@@ -58,16 +59,22 @@ export function PublishStep ({
           <VeraxAttestor proof={proof} provider={provider?.value.providerId} />
         )}
         {chosenChain.includes('arbitrum-one') && (
-          <ArbitrumAttestor
-            proof={proof}
-            provider={provider?.value.providerId}
-          />
+          <>
+            <ArbitrumAttestor
+              proof={proof}
+              provider={provider?.value.providerId}
+            />
+            <ArbVeraxAttestor proof={proof} provider={provider?.value.providerId} />
+          </>
         )}
         {chosenChain === 'optimism' && (
-          <OptimismAttestor
-            proof={proof}
-            provider={provider?.value.providerId}
-          />
+          <>
+            <OptimismAttestor
+              proof={proof}
+              provider={provider?.value.providerId}
+            />
+
+          </>
         )}
         {chosenChain.includes('olygon') && (
           <PolygonAttestor
