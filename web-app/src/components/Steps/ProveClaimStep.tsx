@@ -12,7 +12,7 @@ const backendBase = '/api'
 const backendTemplateUrl = `${backendBase}/prove`
 const backendProofUrl = `${backendBase}/get-proof`
 
-export function ProveClaimStep ({
+export function ProveClaimStep({
   selectedProvider,
   handleSetProof
 }: {
@@ -121,7 +121,7 @@ export function ProveClaimStep ({
           <Text>
             Scan/Click the QR code to be redirected to Reclaim Wallet.
           </Text>
-          <Divider />
+
           <Flex justifyContent={'center'}>
             <a
               href={template}
@@ -130,7 +130,7 @@ export function ProveClaimStep ({
               title={template}
             >
               <QRCode
-                size={256}
+                size={128}
                 value={template}
                 fgColor='#000'
                 bgColor='#fff'

@@ -48,7 +48,7 @@ export function PublishStep({
   console.log(proof)
   return (
     <Center>
-      <Stack h={'100%'} w={'xl'} gap={6}>
+      <Stack gap={4} >
         {chosenChain.includes('Disco') && (
           <Button colorScheme='blue' onClick={handleDisco}>
             Publish With Disco

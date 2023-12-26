@@ -9,9 +9,9 @@ interface CodeProps {
 const Code: FunctionComponent<CodeProps> = props => {
   const { value } = props
   return (
-    <Container>
-      <Box sx={{ width: [400] }}>
-        <QRCode level={'L'} size={400} value={value} />
+    <>
+      <Box sx={{ width: [210] }} >
+        <QRCode level={'L'} size={210} value={value} />
       </Box>
       <Button
         onClick={() => dispachEvent(value)}
@@ -19,20 +19,20 @@ const Code: FunctionComponent<CodeProps> = props => {
         colorScheme='blue'
         // size='large'
         sx={{
-          width: '100%',
+          width: '210px',
           marginTop: '15px'
         }}
       >
         Polygon ID
       </Button>
-    </Container>
+    </>
   )
 }
 
 const dispachEvent = async (value: string) => {
   console.log('data to ext:', value)
   const msg = btoa(value)
-  const hrefValue = `iden3comm://?i_m=${msg}`
+  const hrefValue = `den3comm://?request_uri=${msg}`
   console.log('link to ext:', hrefValue)
 
   const _authEvent = new CustomEvent('authEvent', { detail: hrefValue })

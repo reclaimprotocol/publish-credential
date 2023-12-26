@@ -7,13 +7,10 @@ type Props = {
     handleSelectChange: any
 }
 
-export function ChooseProviderStep({handleSelectChange}: Props){
+export function ChooseProviderStep({ handleSelectChange }: Props) {
 
     return <>
-        <Box>
-            <ProviderSelectInput handleSelectChange={handleSelectChange} />
-        </Box>
-    
+        <ProviderSelectInput handleSelectChange={handleSelectChange} />
     </>
 
 }

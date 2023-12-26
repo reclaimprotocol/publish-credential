@@ -94,7 +94,7 @@ export const ChooseChainStep = ({
   return (
     <>
       <Select
-        width='60%'
+        // width='60%'
         onChange={handleChange}
         defaultValue={currentChain}
         value={currentChain}

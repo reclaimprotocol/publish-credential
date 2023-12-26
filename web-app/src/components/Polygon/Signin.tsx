@@ -96,7 +96,7 @@ const SigninPolygon = () => {
   }, [])
 
   return (
-    <Grid justifyContent='flex-start' alignItems='center' height='100%'>
+    <Grid justifyContent='center' alignItems='center' height='100%'>
       <Grid alignItems='center'>
         <Code value={QRData} />
       </Grid>
