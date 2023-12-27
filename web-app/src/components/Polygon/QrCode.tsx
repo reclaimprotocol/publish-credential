@@ -32,7 +32,7 @@ const Code: FunctionComponent<CodeProps> = props => {
 const dispachEvent = async (value: string) => {
   console.log('data to ext:', value)
   const msg = btoa(value)
-  const hrefValue = `den3comm://?request_uri=${msg}`
+  const hrefValue = `iden3comm://?i_m=${msg}`;
   console.log('link to ext:', hrefValue)
 
   const _authEvent = new CustomEvent('authEvent', { detail: hrefValue })
