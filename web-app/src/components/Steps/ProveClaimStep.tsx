@@ -1,59 +1,77 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Proof } from '@reclaimprotocol/reclaim-sdk'
-import { useAccount } from 'wagmi'
-import { Divider, Flex, Text } from '@chakra-ui/layout'
+import { Flex, Text } from '@chakra-ui/layout'
 import QRCode from 'react-qr-code'
-import { Spinner, Center, useToast } from '@chakra-ui/react'
+import { Spinner, Center, useToast, Button } from '@chakra-ui/react'
 import { providerType } from '../../utils/types'
+import { ReclaimClient } from '@reclaimprotocol/js-sdk'
 
-const backendBase = '/api'
-const backendTemplateUrl = `${backendBase}/prove`
-const backendProofUrl = `${backendBase}/get-proof`
-
-export function ProveClaimStep({
-  selectedProvider,
-  handleSetProof
-}: {
+type Props = {
   selectedProvider: providerType | undefined
   handleSetProof: (proof: Proof) => void
-}) {
+}
+
+export function ProveClaimStep ({ selectedProvider, handleSetProof }: Props) {
   const toast = useToast()
-  const { address } = useAccount()
-  const [template, setTemplate] = useState('')
-  const [isLoadingTemplate, setIsLoadingTemplate] = useState(false)
-  const [isTemplateOk, setIsTemplateOk] = useState(true)
   const [isProofReceived, setIsProofReceived] = useState(false)
+  const [verificationReq, setVerificationReq] = useState<any>(undefined)
   const [proofObj, setProofObj] = useState<Proof>()
-  const [callbackId, setCallbackId] = useState('')
 
-  useEffect(() => {
-    if (selectedProvider === undefined) return
-    if (!isProofReceived) {
-      console.log('Starting to fetch template.')
-      handleGetTemplate()
-      const intervalId = setInterval(fetchProof, 5000)
-      return () => {
-        console.log('Template received/Remounted.')
-        clearInterval(intervalId)
-      }
-    }
-  })
+  const getSignature = async (requestedProofs: any) => {
+    const res = await fetch('/api/getSignature', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        requestedProofs
+      })
+    })
 
-  const fetchProof = async () => {
-    if (isLoadingTemplate) {
-      console.log('Template is still loading.')
-      return
+    if(res.ok){
+      const data  = await res.json()
+      return data.signature
+    }else{
+      const data = await res.json()
+      toast({
+        title: 'Error',
+        description: data.error,
+        duration: 4000,
+        status: 'error',
+        isClosable: true,
+        position: 'top-right'
+      })
+      
     }
-    try {
-      console.log(`Requesting ${backendProofUrl}?id=${callbackId}`)
-      const response = await fetch(`${backendProofUrl}?id=${callbackId}`)
-      if (response.status === 200) {
-        const proofData = await response.json()
+
+    
+  }
+
+  const getVerificationReq = async () => {
+    const APP_ID = '0x9B5fc54c81Af20687d9C83ff36FD8450dB812ba6'
+    const reclaimClient = new ReclaimClient(APP_ID)
+    const providers = [selectedProvider?.label]
+    const providerV2 = await reclaimClient.buildHttpProviderV2ByName(providers)
+    const requestProofs = await reclaimClient.buildRequestedProofs(
+      providerV2,
+      await reclaimClient.getAppCallbackUrl()
+    )
+
+    reclaimClient.setSignature(await getSignature(requestProofs))
+
+    const reclaimReq = await reclaimClient.createVerificationRequest(providers)
+    setVerificationReq(reclaimReq)
+    console.log('req', reclaimReq.template)
+    const url = await reclaimReq.start()
+    console.log(url)
+    reclaimReq.on('success', (data: any) => {
+      if (data) {
+        const proofs = data
         setIsProofReceived(true)
-        setProofObj(proofData[0])
-        handleSetProof(proofData[0])
+        setProofObj(proofs[0])
+        handleSetProof(proofs[0])
         toast({
           title: 'Proof received',
           duration: 4000,
@@ -62,49 +80,13 @@ export function ProveClaimStep({
           position: 'top-right'
         })
       }
-    } catch (error) {
-      setIsProofReceived(false)
-      console.log(error)
-    }
-  }
-  console.log(proofObj)
-  const handleGetTemplate = async () => {
-    if (isTemplateOk && template) {
-      console.log('The template is already received.')
-      return
-    }
-    setIsLoadingTemplate(true)
-    try {
-      console.log(`Requesting ${backendTemplateUrl}?userAddr=${address}`)
-      const response = await fetch(
-        `${backendTemplateUrl}?userAddr=${address}&provider=${JSON.stringify(
-          selectedProvider
-        )}`
-      )
-      if (response.ok) {
-        const data = await response.json()
-        if (data?.error) {
-          console.log(data.error)
-          throw new Error(data.error)
-        }
-        console.log('Here', data)
-        setCallbackId(data.callbackId)
-        setTemplate(data.reclaimUrl)
-        setIsTemplateOk(true)
-        console.log('The template generated is: ', template)
-      } else {
-        setIsTemplateOk(false)
-        setTemplate(
-          'Error: Unable to receive a valid template from the backend. Check if it is up and running. Please try again later.'
-        )
+    })
+    reclaimReq.on('error', (data: any) => {
+      if (data) {
+        const proofs = data
+        // TODO: update business logic based on proof generation failure
       }
-    } catch (error) {
-      setIsTemplateOk(false)
-      setTemplate('Error: ' + error)
-      console.log(error)
-    }
-    setIsLoadingTemplate(false)
-    return
+    })
   }
 
   return (
@@ -116,7 +98,7 @@ export function ProveClaimStep({
           </Text>
         </Center>
       )}
-      {!isProofReceived && template && isTemplateOk && (
+      {!isProofReceived && verificationReq?.template && (
         <>
           <Text>
             Scan/Click the QR code to be redirected to Reclaim Wallet.
@@ -124,14 +106,14 @@ export function ProveClaimStep({
 
           <Flex justifyContent={'center'}>
             <a
-              href={template}
+              href={verificationReq.template}
               target='_blank'
               rel='noopener noreferrer'
-              title={template}
+              title={verificationReq.template}
             >
               <QRCode
-                size={128}
-                value={template}
+                size={320}
+                value={verificationReq.template}
                 fgColor='#000'
                 bgColor='#fff'
                 className='QR-resize'
@@ -140,16 +122,15 @@ export function ProveClaimStep({
           </Flex>
         </>
       )}
-      {!isProofReceived && isTemplateOk && (
+      {!isProofReceived && verificationReq && (
         <Flex flex='1' width='full' justifyContent='center'>
           <Spinner />
           <Text>Listening to get your proof </Text>
         </Flex>
       )}
-      {!isTemplateOk && (
+      {!isProofReceived && !verificationReq && (
         <Flex flex='1' width='full' justifyContent='center'>
-          <Spinner />
-          <Text>Loading QR Code Template</Text>
+          <Button onClick={getVerificationReq}>Start Listening to get your proof </Button>
         </Flex>
       )}
     </>

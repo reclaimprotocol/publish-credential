@@ -6,12 +6,12 @@ import {
 	GET_ALL_CUSTOM_PROVIDERS_ENDPOINT,
 } from '../constants'
 
-export const fetchAllCustomProviders = async() => {
+export const fetchAllCustomProviders = async () => {
 	try {
 		const { data } = await axios.get(GET_ALL_CUSTOM_PROVIDERS_ENDPOINT)
 		const responseValue = await axios.get(GET_ALL_COMMUNITY_PROVIDERS_ENDPOINT)
 
-		if(data.isSuccess) {
+		if (data.isSuccess) {
 			const { customProvidersWithSubProviders } = data
 
 			const providerOptions = customProvidersWithSubProviders.map(
@@ -40,7 +40,7 @@ export const fetchAllCustomProviders = async() => {
 				label: p.label,
 				//@ts-ignore
 				options: p.subProviders.map((pro) => {
-					if(p.label === 'Community') {
+					if (p.label === 'Community') {
 						return {
 							value: pro,
 							label: pro.name,
@@ -56,9 +56,11 @@ export const fetchAllCustomProviders = async() => {
 				}),
 			}))
 
+			console.log('groupedOptions', groupedOptions)
+
 			return groupedOptions
 		}
-	} catch(error) {
+	} catch (error) {
 		console.error('Error while fetching custom providers:', error)
 	}
 }

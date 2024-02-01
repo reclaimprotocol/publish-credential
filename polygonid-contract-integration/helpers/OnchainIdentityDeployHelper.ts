@@ -23,11 +23,11 @@ export class OnchainIdentityDeployHelper {
 
   async deployIdentity(
     state: string,
-    smtLib: Contract,
-    poseidon1: Contract,
-    poseidon2: Contract,
-    poseidon3: Contract,
-    poseidon4: Contract
+    smtLib: string,
+    poseidon1: string,
+    poseidon2: string,
+    poseidon3: string,
+    poseidon4: string
   ): Promise<{
     identity: Contract;
   }> {
@@ -36,7 +36,7 @@ export class OnchainIdentityDeployHelper {
     this.log("======== Identity: deploy started ========");
 
     const cb = await this.deployClaimBuilder();
-    const il = await this.deployIdentityLib(smtLib.address, poseidon3.address, poseidon4.address);
+    const il = await this.deployIdentityLib(smtLib, poseidon3, poseidon4);
 
     this.log("deploying Identity...");
     const IdentityFactory = await ethers.getContractFactory("IdentityWithReclaim", {
