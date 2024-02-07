@@ -37,6 +37,7 @@ export default function ArbitrumAttestor ({
   const { address } = useAccount()
 
   console.log(proof)
+  console.log('r', provider)
   useEffect(() => {
     console.log('z', ethers.ZeroAddress)
     if (proof == undefined) return
@@ -57,7 +58,7 @@ export default function ArbitrumAttestor ({
       }
     }
     setProofReq(proofData as any)
-
+    
     const schemaInfo = getSchemaAndUid(provider)
     console.log(schemaInfo)
     if (!schemaInfo.schema) return
@@ -73,9 +74,11 @@ export default function ArbitrumAttestor ({
         //@ts-ignore
         address
       )
+      console.log(data)
       setEnabled(true)
       setAttestationData(data)
     }
+
     setter()
   }, [proof, provider, address])
 

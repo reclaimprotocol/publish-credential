@@ -17,19 +17,27 @@ export async function getToPublishEASData (
     proof.extractedParameterValues == undefined
       ? JSON.parse(proof.claimData.parameters as string)
       : proof.extractedParameterValues
-  for (let item of schemaItemsRaw) {
-    const fItem = item.split(' ')
+  console.log(proof.extractedParameterValues)
+  if (proof.claimData.provider == 'http') {
     schemaItems.push({
-      type: fItem[0],
-      name: fItem[1],
-      value: params[fItem[1]]
+      type: 'string',
+      name: 'parameters',
+      value: JSON.stringify(params)
     })
+  } else {
+    for (let item of schemaItemsRaw) {
+      const fItem = item.split(' ')
+      schemaItems.push({
+        type: fItem[0],
+        name: fItem[1],
+        value: params[fItem[1]]
+      })
+    }
   }
-  console.log('Schema Items', schemaItems)
+
   const schemaEncoder = new SchemaEncoder(schema)
   //@ts-ignore
   const encodedStr = schemaEncoder.encodeData(schemaItems)
-  console.log('Encoded String', encodedStr)
 
   // const data = ethers.encodeBase64(proof.parameters as string)
   return {

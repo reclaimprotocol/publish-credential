@@ -62,16 +62,16 @@ export function PublishStep({
           <>
             <ArbitrumAttestor
               proof={proof}
-              provider={provider?.value.providerId}
+              provider={proof?.claimData.provider || ""}
             />
-            <ArbVeraxAttestor proof={proof} provider={provider?.value.providerId} />
+            {/* <ArbVeraxAttestor proof={proof} provider={provider?.value.providerId} /> */}
           </>
         )}
         {chosenChain === 'optimism' && (
           <>
             <OptimismAttestor
               proof={proof}
-              provider={provider?.value.providerId}
+              provider={proof?.claimData.provider || ""}
             />
 
           </>
