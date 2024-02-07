@@ -51,7 +51,7 @@ export default function OptimismAttestor ({
         signatures: proof.signatures,
         claim: {
           identifier: proof.identifier,
-          owner: ethers.computeAddress(`${proof.claimData.owner}`),
+          owner: proof.claimData.owner,
           timestampS: proof.claimData.timestampS,
           epoch: proof.claimData.epoch
         }
