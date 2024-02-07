@@ -10,7 +10,7 @@ export default async function handler(
     const APP_ID = '0x9B5fc54c81Af20687d9C83ff36FD8450dB812ba6'
     const reclaimClient = new ReclaimClient(APP_ID)
 
-    const signature = await reclaimClient.getSignature(requestedProofs, process.env.RECLAIM_APP_SECRET)
+    const signature = await reclaimClient.getSignature(requestedProofs, process.env.RECLAIM_APP_SECRET!)
         
     res.status(200).json({ signature })
     } catch(e: any){

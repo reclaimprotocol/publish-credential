@@ -19,7 +19,7 @@
     "@ethereum-attestation-service/eas-sdk": "^1.2.1-beta.1",
     "@iden3/js-iden3-core": "^1.1.0",
     "@next/font": "13.0.3",
-    "@reclaimprotocol/js-sdk": "^0.0.2",
+    "@reclaimprotocol/js-sdk": "^0.0.6",
     "@reclaimprotocol/reclaim-sdk": "^5.2.0",
     "@semaphore-protocol/identity": "^3.15.0",
     "@types/react": "18.0.25",
