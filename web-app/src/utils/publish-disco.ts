@@ -1,4 +1,4 @@
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from './types'
 
 
 export default async function publishWithDisco (proof: Proof) {
@@ -20,7 +20,7 @@ export default async function publishWithDisco (proof: Proof) {
         'did:3:kjzl6cwe1jw146tylqdgrlf0nv0pgwy8edv8lcsbjvikfcr7pkge35mcnet8hx3',
       subjectData: {
         id:'did:3:kjzl6cwe1jw146tylqdgrlf0nv0pgwy8edv8lcsbjvikfcr7pkge35mcnet8hx3',
-        ...proof.parameters
+        ...JSON.parse(proof.claimData.parameters)
       },
       expirationDate: '',
       isPublic: true

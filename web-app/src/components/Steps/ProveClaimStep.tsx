@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from '../../utils/types'
 import { Flex, Text } from '@chakra-ui/layout'
 import QRCode from 'react-qr-code'
 import { Spinner, Center, useToast, Button } from '@chakra-ui/react'

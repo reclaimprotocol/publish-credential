@@ -26,3 +26,24 @@ export type providerType = {
   value: CustomSubProvider
   params: paramsType[]
 }
+
+export interface Proof {
+    identifier: string;
+    claimData: ProviderClaimData;
+    signatures: string[];
+    witnesses: WitnessData[];
+    extractedParameterValues: any;
+}
+interface WitnessData {
+    id: string;
+    url: string;
+}
+interface ProviderClaimData {
+    provider: string;
+    parameters: string;
+    owner: string;
+    timestampS: number;
+    context: string;
+    identifier: string;
+    epoch: number;
+}

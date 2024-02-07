@@ -1,7 +1,6 @@
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from '../../utils/types'
 import { useCallback, useEffect, useState } from 'react'
 import { Button, Flex, Spinner, Text, useToast, Link } from '@chakra-ui/react'
-import { PolygonModal } from './PolygonModal'
 import createPolygonIdClaim from '../../utils/create-polygonid-claim'
 import { getSchemaAndUidPolygon } from '../../utils/get-pid-schemas'
 import Offer from '../Polygon/Offer'
@@ -43,7 +42,7 @@ export default function PolygonAttestor ({
 
     const params =
       proof.extractedParameterValues == undefined
-        ? JSON.parse(proof.parameters as string)
+        ? JSON.parse(proof.claimData.parameters as string)
         : proof.extractedParameterValues
 
     const claimR = createPolygonIdClaim(
@@ -75,7 +74,7 @@ export default function PolygonAttestor ({
 
         const params =
           proof.extractedParameterValues == undefined
-            ? JSON.parse(proof.parameters as string)
+            ? JSON.parse(proof.claimData.parameters as string)
             : proof.extractedParameterValues
 
         const claimR = createPolygonIdClaim(

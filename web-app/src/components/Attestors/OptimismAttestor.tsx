@@ -8,7 +8,7 @@ import {
   useWaitForTransaction
 } from 'wagmi'
 import { Button, Spinner, Text, useToast, Link } from '@chakra-ui/react'
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from '../../utils/types'
 import { getToPublishEASData } from '../../utils/publish-eas'
 import { ethers } from 'ethers'
 import { AttestationRequest } from '@ethereum-attestation-service/eas-sdk'
@@ -43,17 +43,17 @@ export default function OptimismAttestor ({
     if (proof == undefined) return
     const proofData = {
       claimInfo: {
-        provider: proof.provider,
-        context: proof.context,
-        parameters: proof.parameters
+        provider: proof.claimData.provider,
+        context: proof.claimData.context,
+        parameters: proof.claimData.parameters
       },
       signedClaim: {
         signatures: proof.signatures,
         claim: {
           identifier: proof.identifier,
-          owner: ethers.computeAddress(`0x${proof.ownerPublicKey}`),
-          timestampS: proof.timestampS,
-          epoch: proof.epoch
+          owner: ethers.computeAddress(`0x${proof.claimData.owner}`),
+          timestampS: proof.claimData.timestampS,
+          epoch: proof.claimData.epoch
         }
       }
     }

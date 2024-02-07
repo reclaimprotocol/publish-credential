@@ -1,7 +1,7 @@
 'use client'
 
 import { Button, Center, Stack, useToast } from '@chakra-ui/react'
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from '../../utils/types'
 
 import publishWithDisco from '../../utils/publish-disco'
 import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'

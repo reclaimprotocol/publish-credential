@@ -25,7 +25,7 @@ import {
 import { reclaimNetworksAddresses } from '../reclaimNetworkAddresses'
 import { useCallback, useState } from 'react'
 import { providerType } from '../utils/types'
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from '../utils/types'
 import { PolygonModal } from './Polygon/Modal'
 
 const steps = [

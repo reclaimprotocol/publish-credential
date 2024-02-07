@@ -2,7 +2,7 @@ import {
   AttestationRequest,
   SchemaEncoder
 } from '@ethereum-attestation-service/eas-sdk'
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from './types'
 import { ethers } from 'ethers'
 
 export async function getToPublishEASData (
@@ -15,7 +15,7 @@ export async function getToPublishEASData (
   const schemaItems = []
   const params =
     proof.extractedParameterValues == undefined
-      ? JSON.parse(proof.parameters as string)
+      ? JSON.parse(proof.claimData.parameters as string)
       : proof.extractedParameterValues
   for (let item of schemaItemsRaw) {
     const fItem = item.split(' ')

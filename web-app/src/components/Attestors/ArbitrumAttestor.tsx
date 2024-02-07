@@ -9,11 +9,12 @@ import {
   useWaitForTransaction
 } from 'wagmi'
 import { Button, Link, Spinner, Text, useToast } from '@chakra-ui/react'
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
 import { getToPublishEASData } from '../../utils/publish-eas'
 import { ethers } from 'ethers'
 import { AttestationRequest } from '@ethereum-attestation-service/eas-sdk'
 import { reclaimNetworksAddresses } from '../../reclaimNetworkAddresses'
+import { Proof } from '../../utils/types'
+
 
 export default function ArbitrumAttestor ({
   provider,
@@ -41,17 +42,17 @@ export default function ArbitrumAttestor ({
     if (proof == undefined) return
     const proofData = {
       claimInfo: {
-        provider: proof.provider,
-        context: proof.context,
-        parameters: proof.parameters
+        provider: proof.claimData.provider,
+        context: proof.claimData.context,
+        parameters: proof.claimData.parameters
       },
       signedClaim: {
         signatures: proof.signatures,
         claim: {
           identifier: proof.identifier,
-          owner: ethers.computeAddress(`0x${proof.ownerPublicKey}`),
-          timestampS: proof.timestampS,
-          epoch: proof.epoch
+          owner: ethers.computeAddress(`0x${proof.claimData.owner}`),
+          timestampS: proof.claimData.timestampS,
+          epoch: proof.claimData.epoch
         }
       }
     }

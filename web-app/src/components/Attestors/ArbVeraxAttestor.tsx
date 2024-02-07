@@ -1,5 +1,5 @@
 import { Button, Spinner, useToast } from '@chakra-ui/react'
-import { Proof } from '@reclaimprotocol/reclaim-sdk'
+import { Proof } from '../../utils/types'
 import { Identity } from '@semaphore-protocol/identity'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
@@ -31,17 +31,17 @@ export default function ArbVeraxAttestor({
         if (proof == undefined) return
         const proofReq = {
             claimInfo: {
-                provider: proof.provider,
-                context: proof.context,
-                parameters: proof.parameters
+                provider: proof.claimData.provider,
+                context: proof.claimData.context,
+                parameters: proof.claimData.parameters
             },
             signedClaim: {
                 signatures: proof.signatures,
                 claim: {
                     identifier: proof.identifier,
-                    owner: ethers.computeAddress(`0x${proof.ownerPublicKey}`),
-                    timestampS: proof.timestampS,
-                    epoch: proof.epoch
+                    owner: ethers.computeAddress(`0x${proof.claimData.owner}`),
+                    timestampS: proof.claimData.timestampS,
+                    epoch: proof.claimData.epoch
                 }
             }
         }
