@@ -52,7 +52,7 @@ export function ProveClaimStep ({ selectedProvider, handleSetProof }: Props) {
   const getVerificationReq = async () => {
     const APP_ID = '0x9B5fc54c81Af20687d9C83ff36FD8450dB812ba6'
     const reclaimClient = new ReclaimClient(APP_ID)
-    const providers = [selectedProvider!.value.providerId]
+    const providers = [selectedProvider!.value.httpProviderId]
     const providerV2 = await reclaimClient.buildHttpProviderV2ByID(providers)
     const requestProofs = await reclaimClient.buildRequestedProofs(
       providerV2,

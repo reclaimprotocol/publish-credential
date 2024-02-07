@@ -5,7 +5,7 @@ export type CustomSubProvider = {
   form: boolean
   id: string
   params: []
-  providerId: string
+  httpProviderId: string
   providerName: string
 }
 
