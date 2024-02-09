@@ -3,6 +3,7 @@ import { useEffect, useState, CSSProperties } from 'react'
 import { fetchAllCustomProviders } from '../utils/fetch-providers'
 import Select from 'react-select'
 import makeAnimated from 'react-select/animated'
+import { Spinner } from '@chakra-ui/react'
 
 export default function ProviderSelectInput ({
   handleSelectChange
@@ -10,6 +11,7 @@ export default function ProviderSelectInput ({
   handleSelectChange: any
 }) {
   const [providerOptions, setProviderOptions] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const animatedComponents = makeAnimated()
 
   const selectCustomProvider = async () => {
@@ -18,12 +20,11 @@ export default function ProviderSelectInput ({
     if (providers) {
       setProviderOptions(providers)
     }
-    console.log(providers.filter((provider: any) => provider.options[0].type === 'http'))
   }
 
   useEffect(() => {
     selectCustomProvider()
-    
+    setIsLoading(false)
   }, [])
 
 
@@ -67,6 +68,9 @@ export default function ProviderSelectInput ({
 
   return (
     <>
+    {
+      isLoading ? 
+      <Spinner /> :
       <Select 
         // menuPortalTarget={document.body}
         styles={{
@@ -79,7 +83,7 @@ export default function ProviderSelectInput ({
         onChange={handleSelectChange}
         formatGroupLabel={formatGroupLabel}
         components={animatedComponents}
-      />
+      />}
     </>
   )
 }

@@ -40,5 +40,11 @@ export const reclaimNetworksAddresses = {
     address: '0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1',
     name: 'Arthera testnet',
     chainId: 10243
-  }  
+  },
+  'aurora-testnet': {
+    address: '0xACE04E6DeB9567C1B8F37D113F2Da9E690Fc128d',
+    name: 'Aurora testnet',
+    chainId: 1313161555
+  }
+
 }

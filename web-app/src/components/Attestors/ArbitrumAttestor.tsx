@@ -81,7 +81,7 @@ export default function ArbitrumAttestor ({
 
     setter()
   }, [proof, provider, address])
-
+  console.log(attestationData)
   const { config } = usePrepareContractWrite({
     enabled: enabled,
     //@ts-ignore

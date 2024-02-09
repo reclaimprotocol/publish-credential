@@ -34,6 +34,7 @@ export async function getToPublishEASData (
       })
     }
   }
+  console.log(schemaItems)
 
   const schemaEncoder = new SchemaEncoder(schema)
   //@ts-ignore

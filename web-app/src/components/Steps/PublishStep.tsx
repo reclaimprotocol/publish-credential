@@ -10,6 +10,7 @@ import OptimismAttestor from '../Attestors/OptimismAttestor'
 import VeraxAttestor from '../Attestors/VeraxAttestor'
 import PolygonAttestor from '../Attestors/PolygonAttestor'
 import ArbVeraxAttestor from '../Attestors/ArbVeraxAttestor'
+import AuroraReclaimNFT from '../Attestors/AuroraReclaimNFT'
 
 export function PublishStep({
   proof,
@@ -45,7 +46,7 @@ export function PublishStep({
     }
   }
 
-  console.log(proof)
+  
   return (
     <Center>
       <Stack gap={4} >
@@ -81,6 +82,12 @@ export function PublishStep({
             proof={proof}
             chain={chosenChain}
             provider={provider?.value.providerId}
+          />
+        )}
+        {chosenChain.includes('aurora') && (
+          <AuroraReclaimNFT
+            proof={proof}
+            provider={provider?.value.name}
           />
         )}
       </Stack>
