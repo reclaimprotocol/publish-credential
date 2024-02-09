@@ -46,7 +46,7 @@ export default async function handler(
                    metadata
                 });
 
-                res.status(201).json({ message: 'Metadata saved successfully', tokenURI: `/api/reclaim-nft?tokenId=${tokenId}`  });
+                res.status(201).json({ message: 'Metadata saved successfully', tokenURI: `https://publish-credentials.reclaimprotocol.org/api/reclaim-nft?tokenId=${tokenId}`  });
             } catch (error) {
                 console.error(error);
                 res.status(500).json({ error: 'Internal Server Error' });
