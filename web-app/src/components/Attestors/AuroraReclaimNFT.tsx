@@ -23,7 +23,7 @@ export default function AuroraReclaimNFT ({
   const [txHash, setTxHash] = useState(null)
 
   const [proofRequest, setproofRequest] = useState<any>(null)
-  const [tokenUri, setTokenUri] = useState<any>(null)
+  const [tokenUri, setTokenUri] = useState<string | undefined>()
   const toast = useToast()
 
   useEffect(() => {
@@ -59,8 +59,7 @@ export default function AuroraReclaimNFT ({
                 }
             })
             const data = await response.json()
-            setTokenUri(data.tokenUri)
-            console.log(data)
+            setTokenUri(data.tokenURI)
 
         }catch(e){
             console.log(e)
@@ -71,10 +70,11 @@ export default function AuroraReclaimNFT ({
     
   }, [proof, address, provider])
 
-  const contractAddress = '0xCc08210D8f15323104A629a925E4cc59D0fa2Fe1'
+  const contractAddress = '0x7281630E4346dd4c0B7AE3B4689c1d0102741410'
 
-  //@ts-ignore
+  
   const { config } = usePrepareContractWrite({
+    enabled: tokenUri !== undefined,
     address: contractAddress,
     abi: abi,
     functionName: 'mint',
@@ -110,7 +110,7 @@ export default function AuroraReclaimNFT ({
   return (
     <>
       <Button colorScheme = 'blue' onClick={()=>{write?.()}}>Publish (Mint NFT) {isLoading && <Spinner />}</Button>
-      {txHash && <Link href={`https://explorer.testnet.aurora.dev/tx/${txHash}`} target='_blank' />}
+      {txHash && <Link href={`https://explorer.testnet.aurora.dev/tx/${txHash}`} target='_blank'>View on Block Explorer</Link>}
     </>
   )
 }
