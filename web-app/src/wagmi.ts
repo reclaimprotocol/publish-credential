@@ -26,22 +26,22 @@ export const linea = {
 } as const satisfies Chain
 
 
-export const artheraTestnet = {
-  id:10243,
-  name: 'Arthera Testnet',
-  network: 'arthera testnet',
+export const arthera = {
+  id:10242,
+  name: 'Arthera',
+  network: 'arthera',
   nativeCurrency: {
     decimals: 18,
     name: 'Arthera',
     symbol: 'AA',
   },
   rpcUrls: {
-    public: { http: ['https://rpc-test2.arthera.net'] },
-    default: { http: ['https://rpc-test2.arthera.net'] },
+    public: { http: ['https://rpc.arthera.net'] },
+    default: { http: ['https://rpc.arthera.net'] },
   },
   blockExplorers: {
-    etherscan: { name: 'Artherascan', url: 'https://explorer-test2.arthera.net' },
-    default: { name: 'Artherascan', url: 'https://explorer-test2.arthera.net' },
+    etherscan: { name: 'Artherascan', url: 'https://explorer.arthera.net' },
+    default: { name: 'Artherascan', url: 'https://explorer.arthera.net' },
   },
 
 } as const satisfies Chain
@@ -51,7 +51,7 @@ export const artheraTestnet = {
 export const config = createConfig(
   getDefaultConfig({
     autoConnect: true,
-    chains:[polygonMumbai, linea, polygon , arbitrum, optimismGoerli, optimism, artheraTestnet, auroraTestnet],
+    chains:[polygonMumbai, linea, polygon , arbitrum, optimismGoerli, optimism, arthera, auroraTestnet],
     infuraId: process.env.NEXT_PUBLIC_INFURA_ID,
     appName: 'Publish Credintials - Reclaim',
     walletConnectProjectId,

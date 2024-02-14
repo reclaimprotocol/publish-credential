@@ -36,10 +36,10 @@ export const reclaimNetworksAddresses = {
     name: 'Optimism mainnet',
     chainId: 10
   },
-  'arthera-testnet':{
-    address: '0xe79A453bD088F4A58656b315a7C1f8Ea3473CCf1',
-    name: 'Arthera testnet',
-    chainId: 10243
+  'arthera':{
+    address: '0xd6534f52CEB3d0139b915bc0C3278a94687fA5C7',
+    name: 'Arthera',
+    chainId: 10242
   },
   'aurora-testnet': {
     address: '0xACE04E6DeB9567C1B8F37D113F2Da9E690Fc128d',

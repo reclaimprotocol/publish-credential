@@ -9,8 +9,8 @@ import ArbitrumAttestor from '../Attestors/ArbitrumAttestor'
 import OptimismAttestor from '../Attestors/OptimismAttestor'
 import VeraxAttestor from '../Attestors/VeraxAttestor'
 import PolygonAttestor from '../Attestors/PolygonAttestor'
-import ArbVeraxAttestor from '../Attestors/ArbVeraxAttestor'
 import AuroraReclaimNFT from '../Attestors/AuroraReclaimNFT'
+import ArtheraReclaimNFT from '../Attestors/ArtheraReclaimNFT'
 
 export function PublishStep({
   proof,
@@ -86,6 +86,12 @@ export function PublishStep({
         )}
         {chosenChain.includes('aurora') && (
           <AuroraReclaimNFT
+            proof={proof}
+            provider={provider?.value.name}
+          />
+        )}
+        {chosenChain.includes('arthera') && (
+          <ArtheraReclaimNFT
             proof={proof}
             provider={provider?.value.name}
           />
