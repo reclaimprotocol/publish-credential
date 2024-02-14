@@ -70,7 +70,7 @@ export default function ArtheraReclaimNFT ({
     
   }, [proof, address, provider])
 
-  const contractAddress = '0xd6534f52CEB3d0139b915bc0C3278a94687fA5C7'
+  const contractAddress = '0x9e4A9F3297c89D3F5CD64B020CE9B51953cAb456'
 
   
   const { config } = usePrepareContractWrite({
